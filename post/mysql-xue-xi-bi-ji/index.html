@@ -1,0 +1,227 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MySql 学习笔记 | Gridea</title>
+<link rel="shortcut icon" href="https://Alan52519.github.io/favicon.ico?v=1677394464402">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Alan52519.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="MySql 学习笔记 | Gridea - Atom Feed" href="https://Alan52519.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="1.
+
+
+
+标题
+标题
+标题
+
+
+
+
+居左测试文本
+居中测试文本
+居右测试文本
+
+
+居左测试文本1
+居中测试文本2
+居右测试文本3
+
+
+居左测试文本11
+居中测试文本22
+居右测试文本33
+
+
+居左测试文本111
+居中测试文本222
+居右测..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://Alan52519.github.io">
+  <img class="avatar" src="https://Alan52519.github.io/images/avatar.png?v=1677394464402" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              MySql 学习笔记
+            </h2>
+            <div class="post-info">
+              <span>
+                2023-02-26
+              </span>
+              <span>
+                1 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="1">1.</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">标题</th>
+<th style="text-align:center">标题</th>
+<th style="text-align:right">标题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">居左测试文本</td>
+<td style="text-align:center">居中测试文本</td>
+<td style="text-align:right">居右测试文本</td>
+</tr>
+<tr>
+<td style="text-align:left">居左测试文本1</td>
+<td style="text-align:center">居中测试文本2</td>
+<td style="text-align:right">居右测试文本3</td>
+</tr>
+<tr>
+<td style="text-align:left">居左测试文本11</td>
+<td style="text-align:center">居中测试文本22</td>
+<td style="text-align:right">居右测试文本33</td>
+</tr>
+<tr>
+<td style="text-align:left">居左测试文本111</td>
+<td style="text-align:center">居中测试文本222</td>
+<td style="text-align:right">居右测试文本333</td>
+</tr>
+</tbody>
+</table>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#1">1.</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://Alan52519.github.io/post/hello-gridea/">
+              <h3 class="post-title">
+                Hello Gridea
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://Alan52519.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
