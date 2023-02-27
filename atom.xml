@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Alan52519.github.io</id>
     <title>Gridea</title>
-    <updated>2023-02-26T07:33:34.248Z</updated>
+    <updated>2023-02-27T13:37:28.471Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Alan52519.github.io"/>
     <link rel="self" href="https://Alan52519.github.io/atom.xml"/>
@@ -16,38 +16,101 @@
         <link href="https://Alan52519.github.io/post/mysql-xue-xi-bi-ji/">
         </link>
         <updated>2023-02-26T03:58:08.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="1">1.</h1>
+        <content type="html"><![CDATA[<p>#Mysql学习记录</p>
+<h3 id="2023226">2023/2/26</h3>
+<h3 id="sql-分类">SQL 分类</h3>
 <table>
 <thead>
 <tr>
-<th style="text-align:left">标题</th>
-<th style="text-align:center">标题</th>
-<th style="text-align:right">标题</th>
+<th style="text-align:left">分类</th>
+<th style="text-align:center">全称</th>
+<th style="text-align:right">说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">居左测试文本</td>
-<td style="text-align:center">居中测试文本</td>
-<td style="text-align:right">居右测试文本</td>
+<td style="text-align:left">DDL</td>
+<td style="text-align:center">Data Definition Language</td>
+<td style="text-align:right">数据定义语言，用来定义数据库对象(数据库，表，字段)</td>
 </tr>
 <tr>
-<td style="text-align:left">居左测试文本1</td>
-<td style="text-align:center">居中测试文本2</td>
-<td style="text-align:right">居右测试文本3</td>
+<td style="text-align:left">DML</td>
+<td style="text-align:center">Data Manipulation Language</td>
+<td style="text-align:right">数据库操作语言，用来对数据库表中的数据进行增删改</td>
 </tr>
 <tr>
-<td style="text-align:left">居左测试文本11</td>
-<td style="text-align:center">居中测试文本22</td>
-<td style="text-align:right">居右测试文本33</td>
+<td style="text-align:left">DQL</td>
+<td style="text-align:center">Data Query Language</td>
+<td style="text-align:right">数据查询语言，用来查询数据库中表的记录</td>
 </tr>
 <tr>
-<td style="text-align:left">居左测试文本111</td>
-<td style="text-align:center">居中测试文本222</td>
-<td style="text-align:right">居右测试文本333</td>
+<td style="text-align:left">DCL</td>
+<td style="text-align:center">Data Control Language</td>
+<td style="text-align:right">数据库控制语言，用来创建数据库用户，控制数据库的访问权限</td>
 </tr>
 </tbody>
 </table>
+<ol>
+<li>
+<ul>
+<li>DDL  数据库操作
+<ul>
+<li>
+<p>查询所有数据库<br>
+SHOW DATABASES;</p>
+</li>
+<li>
+<p>查询当前数据库<br>
+SELECT DATABASE();</p>
+<ul>
+<li>创建<br>
+CREATE DATABASE IF NOT EXISTS 数据库名 [default charset 字符集 ] [COLLATE 排序规则];</li>
+<li>删除<br>
+DROP DATABASE [IF EXISTS] 数据库名;</li>
+</ul>
+<ul>
+<li>使用<br>
+USE 数据库名;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>
+<p>DDL  表操作 查询<br>
+- 查询当前数据库所有表<br>
+SHOW TABLES;<br>
+- 查询表结构<br>
+DESC 表名;<br>
+- 查询指定表的建表语句<br>
+-SHOW CREATE TABLE  表名;</p>
+</li>
+<li>
+<p>DDL  表操作 创建<br>
+-  CREATE TABLE 表名 （<br>
+字段1 字段类型 [comment 字段1注释],<br>
+字段2 字段2类型[comment 字段2注释],<br>
+...<br>
+字段n 字段n类型 [comment 字段n注释]<br>
+）[comment 表注释];</p>
+</li>
+<li>
+<p>DDL  表操作 数据类型</p>
+<pre><code>    数值类型
+</code></pre>
+</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://s2.loli.net/2023/02/26/y7iAT9uerwM6Xbz.png" alt="" loading="lazy"></figure>
+<h3 id=""></h3>
+<pre><code>	 字符类型 
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://s2.loli.net/2023/02/26/SY3Gcgh7wCIstev.png" alt="" loading="lazy"></figure>
+<pre><code>	日期类型
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://s2.loli.net/2023/02/26/xJy64L51APNKjrn.png" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
     <entry>
