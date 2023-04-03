@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>计算机网络分层处理 | Alan52519</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://alan52519.github.io/favicon.ico?v=1680484039012">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://alan52519.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://alan52519.github.io">
+        <img class="avatar" src="https://alan52519.github.io/images/avatar.png?v=1680484039012" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://alan52519.github.io">
+        <h1 class="site-title">Alan52519</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">计算机网络分层处理</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2023-03-26</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://alan52519.github.io/tag/AyuxEqLG_/">
+                    计算机网络
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <h2 id="1-物理层">1. 物理层</h2>
+<h3 id="解决的问题">解决的问题</h3>
+<ul>
+<li>采用怎样的传输媒体</li>
+<li>采用怎样的物理接口</li>
+<li>要用怎样的信号表示0和1</li>
+</ul>
+<h2 id="2数据链路层">2.数据链路层</h2>
+<h3 id="解决的问题-2">解决的问题</h3>
+<ul>
+<li>如何表示网络中的主机(主机编址问题，如mac地址)</li>
+<li>如何从信号所表示的一串比特流中区分出地址和数据</li>
+<li>总线型网络已经淘汰</li>
+</ul>
+<h2 id="3网络层">3.网络层</h2>
+<h3 id="解决的问题-3">解决的问题</h3>
+<ul>
+<li>如何表示各网络以及网络中的各种主机(网络和主机共同编址的问题，例如IP地址)</li>
+<li>路由器如何转发分组，如何进行路由选择</li>
+</ul>
+<h2 id="4运输层">4.运输层</h2>
+<h3 id="解决的问题-4">解决的问题</h3>
+<ul>
+<li>如何解决进程之间基于网络的通信处理</li>
+<li>出现传输错误时，如何处理</li>
+</ul>
+<h2 id="5应用层">5.应用层</h2>
+<h3 id="解决的问题-5">解决的问题</h3>
+<ul>
+<li>通过应用进程间的交互来完成特定的网络应用</li>
+<li>支持万维网应用的HTTP协议</li>
+<li>支持电子邮件的SMTP协议</li>
+<li>支持文件传送的FTP协议</li>
+</ul>
+<h2 id="1-常见的计算机网络体系结构">1 常见的计算机网络体系结构</h2>
+<figure data-type="image" tabindex="1"><img src="https://s2.loli.net/2023/03/26/ULW5esB29Pgc1y4.png" alt="" loading="lazy"></figure>
+<h2 id="2-计算机网络体系结构分层的必要性">2 计算机网络体系结构分层的必要性</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">序号</th>
+<th style="text-align:right">层</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:right">应用层</td>
+<td style="text-align:center">解决通过应用进程的交互来实现特定网络应用的问题</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:right">运输层</td>
+<td style="text-align:center">解决进程之间基于网络的通信问题</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:right">网络层</td>
+<td style="text-align:center">解决分组在多个网络上传输(路由)的问题</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:right">数据链路层</td>
+<td style="text-align:center">解决分组在一个网络(或一段链路)上传输的问题</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:right">物理层</td>
+<td style="text-align:center">解决使用何种信号来传输比特的问题</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-计算机网络体系结构分层思想举例">3 计算机网络体系结构分层思想举例</h2>
+<p>应用于进程中的网络通信<br>
+<img src="https://s2.loli.net/2023/03/26/gXqNt1ryivGJuzd.png" alt="" loading="lazy"></p>
+<h2 id="4-计算机网络体系结构中的专用术语">4 计算机网络体系结构中的专用术语</h2>
+<h3 id="实体">实体</h3>
+<ul>
+<li>
+<p>任何可发送或接收信息的硬件或软件进程</p>
+</li>
+<li>
+<p>对等实体 发送双方相同层次中的实体</p>
+</li>
+<li>
+<p>协议 控制两个对等实体进行逻辑通信规则的集合</p>
+</li>
+<li>
+<p>协议三要素 语法 语义 同步</p>
+<ul>
+<li>语法 定义交换信息的格式</li>
+<li>语义 定义收发双方要完成的操作</li>
+<li>同步 定义收发双方的时序关系</li>
+</ul>
+</li>
+<li>
+<p>在协议控制下 两个对等实体间的逻辑通信使得本层能够向上一层提供服务</p>
+</li>
+<li>
+<p>要实现本层协议，还需要使用下面一层所提供的服务</p>
+</li>
+<li>
+<p>协议是&quot;水平的&quot;,服务是&quot;垂直的&quot;.</p>
+</li>
+<li>
+<p>实体看得见相邻下层所提供的服务，但并不知道实现该服务的具体协议。也就是说，下面的协议对上面的协议是&quot;透明&quot;的。</p>
+</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://s2.loli.net/2023/03/26/gXqNt1ryivGJuzd.png" alt="" loading="lazy"></figure>
+<ul>
+<li>
+<p>服务访问点 在同一系统中相邻两层的实体交换信息的逻辑接口，用于区分不同的服务类型。</p>
+<ul>
+<li>数据链路层的服务访问点为帧的&quot;类型&quot;字段。</li>
+<li>网络层的服务访问点为IP为数据报首部中的&quot;协议字段&quot;。</li>
+<li>运输层的服务访问点为&quot;端口号&quot;。</li>
+</ul>
+</li>
+<li>
+<p>服务原语 上层使用下层所提供的服务必须通过与下层交换一些命令，这些命令成为服务原语。</p>
+</li>
+<li>
+<p>协议数据单元PDU 对等层次之间传送的数据包称为该层的协议数据单元。</p>
+</li>
+<li>
+<p>服务数据单元SDU 同一系统内，层与层之间交换的数据包称为服务数据单元。</p>
+</li>
+<li>
+<p>多个SDU可以合成一个PDU；一个SDU也可以划分为几个PDU。</p>
+</li>
+</ul>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://alan52519.github.io/post/suo-yin/">
+              <h3 class="post-title">
+                下一篇：索引
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://alan52519.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

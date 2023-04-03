@@ -1,0 +1,462 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>MySQL_多表查询 | Alan52519</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://alan52519.github.io/favicon.ico?v=1680484039012">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://alan52519.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://alan52519.github.io">
+        <img class="avatar" src="https://alan52519.github.io/images/avatar.png?v=1680484039012" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://alan52519.github.io">
+        <h1 class="site-title">Alan52519</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">MySQL_多表查询</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2023-03-08</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://alan52519.github.io/tag/lxbRqZRf7/">
+                    Mysql
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <ul>
+<li>
+<p>概述 ：指从多张表中查询数据</p>
+</li>
+<li>
+<p>笛卡尔积：笛卡尔积指在数学中，两个集合A集合和B集合所有的组合情况。（在多表查询时，需要消除无效的笛卡尔积）</p>
+</li>
+<li>
+<p>多表查询分类</p>
+<ul>
+<li>
+<p>连接查询</p>
+<ul>
+<li>内连接：相当于查询A、B交集部分的数据</li>
+<li>外连接：
+<ul>
+<li>左外连接：查询左表所有数据，以及两张表交集部分数据</li>
+<li>右外连接：查询右表所有数据，以及两张表交集部分数据</li>
+</ul>
+</li>
+<li>自连接：当前表与自身的连接查询，自连接必须使用表别名</li>
+</ul>
+</li>
+<li>
+<p>子查询</p>
+</li>
+<li>
+<p>连接查询-内连接<br>
+-隐式内连接</p>
+<pre><code>   SELECT 字段列表 FROM 表1，表2 WHERE 条件...；
+</code></pre>
+</li>
+<li>
+<p>显示内连接</p>
+<pre><code>  SELECT 字段列表 FROM 表1 [INNER] JOIN 表2 ON 连接条件；
+</code></pre>
+<p><font color = "red" > 内连接查询的是两张表交集的部分.</font></p>
+<pre><code>  	-- 多表查询-- 笛卡尔积
+  select * from emp,dept where dept_id = dept.id;
+
+  -- 内连接演示
+  -- 1.查询每一个员工的姓名，及关联的部门的名称（隐式内连接实现）
+  -- 表结构：emp，dept
+  -- 连接条件：emp.dept_id = dept.id
+  select  e.name 姓名 ,d.name 部门 from emp e , dept d where e.dept_id = d.id;
+
+  -- 2.查询每一个员工的姓名，及关联的部门的名称（显式内连接实现）
+  -- 表结构 emp ， dept
+  -- 连接条件 emp.dept_id = dept.id
+  select e.name, d.name from emp e join dept d on d.id = e.dept_id
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="连接查询-外连接">连接查询— 外连接</h2>
+<p>外连接查询语法：</p>
+<ul>
+<li>
+<p>左外连接<br>
+<font color = " red" > 相当于查询表1(左表)的所有数据 包含表1 和表2交集部分的数据</font></p>
+<pre><code> SELECT 字段列表 FROM 表1 LEFT [OUTER] JOIN 表2 ON 条件...；		
+</code></pre>
+</li>
+<li>
+<p>右外连接<br>
+<font color = " red" > 相当于查询表2(右表)的所有数据 包含表1 和表2交集部分的数据</font></p>
+<pre><code>  SELECT 字段列表 FROM 表1 LEFT [OUTER] JOIN 表2 ON 条件...；		
+</code></pre>
+</li>
+</ul>
+<hr>
+<pre><code>-- 外连接演示
+	-- 1.查询emp表的所有数据，和对应的部门信息（左外连接）
+	-- 表结构：emp，dept
+	-- 连接条件：emp.dept_id = dept.id
+	select e.*,d.name
+	from emp e
+     left outer join dept d on d.id = e.dept_id;
+
+	-- 2.查询dept表的所有数据，和对应的部门信息（右外连接）
+	-- 表结构：emp，dept
+	-- 连接条件：emp.dept_id = dept.id
+	 select d.*,e.*
+	from emp e
+     right outer join dept d on d.id = e.dept_id;
+
+	select d.*,e.*
+	from dept d
+     left  outer join emp e on d.id = e.dept_id;
+</code></pre>
+<h2 id="连接查询-自连接">连接查询— 自连接</h2>
+<p>自连接查询语法：</p>
+<pre><code>SELECT 字段列表 FROM 表A 别名A JOIN 表名 别名B ON 条件...;
+</code></pre>
+<p><font color = " red" > 自连接查询，可以是内连接查询，也可以是外连接查询 </font></p>
+<pre><code>	-- 自连接
+	-- 1. 查询员工 及其 所属领导的名字
+	select e1.name 员工名字,e2.name 领导名字
+	from emp e1 join emp e2 where e1.managerid = e2.id;
+
+	-- 2.查询所有员工emp 及其领导的名字 emp, 如果员工没有领导，也需要查询出来
+	select e1.name ,e2.name
+	from emp e1 left join emp  e2 on e1.managerid = e2.id;
+</code></pre>
+<h2 id="联合查询-unionunion-all">联合查询-union,union all</h2>
+<p>对于union查询，就是把多次查询的结果合并起来，形成一个新的查询结果集。</p>
+<pre><code>SELECT 字段列表 FROM 表A...
+UNION[ALL]
+SELECT 字段列表 FROM 表B ...;
+</code></pre>
+<p><font color = " red" > 对于联合查询的多张表，列数必须保持一致，字段类型也需保持一致。<br>
+union all 直接合并处理，union 是去重后的结果。</font></p>
+<h2 id="子查询">子查询</h2>
+<ul>
+<li>
+<p>概念：SQL语句中嵌套SELECT语句，称为嵌套查询，又称为子查询。</p>
+<pre><code>  	SELECT * FROM t1 WHERE column1 =(SELECT column1 FROM t2);
+</code></pre>
+</li>
+</ul>
+<p><font color = " red" > 子查询外部的语句可以是INSERT/UPDATE/DELETE/SELECT的任何一个。</font></p>
+<ul>
+<li>
+<p>根据子查询结果不同，分为：</p>
+<ul>
+<li>标量子查询（子查询结果为单个值）</li>
+<li>列子查询（子查询结果为一列）</li>
+<li>行子查询（子查询结果为一行）</li>
+<li>表子查询（子查询结果为多列多行）</li>
+</ul>
+</li>
+<li>
+<p>根据子查询位置，分为：WHERE 之后、FROM 之后、SELECT 之后。</p>
+</li>
+<li>
+<p>标量子查询</p>
+<ul>
+<li>
+<p>子查询返回的结果是单个值（数字、字符串、日期等），最简单的形式，这种子查询称为标量子查询。常用的操作符：= &lt;&gt; &gt; &gt;= &lt; &lt;=</p>
+<pre><code>  -- -------子查询
+  -- 1，查询&quot;销售部&quot;的所有员工信息
+  -- a.查询&quot;销售部&quot;部门ID
+  select id from dept where name = '销售部';
+
+  -- b.查询&quot;销售部&quot;部门ID,查询员工信息  （表量子查询）
+  select * from emp where dept_id = (select id from dept where name = '销售部');
+
+  -- 2.查询在”方东白“之后入职的员工
+  -- a.查询方东白的入职日期
+  select  entrydate from emp where name ='方东白';
+
+  -- b.查询指定入职日期之后入职的员工信息
+  select * from emp where entrydate &gt; (select  entrydate from emp where name ='方东白');
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>列子查询</p>
+<pre><code>  子查询返回的结果是一列(可以是多行),这种子查询称为列子查询。
+  常用的操作符：IN 、 NOT IN 、 ANY 、 SOME 、ALL
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><font color ="red" >操作符</th>
+<th style="text-align:left"><font color ="red" >描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">IN</td>
+<td style="text-align:left">在指定的集合范围之内，多选一</td>
+</tr>
+<tr>
+<td style="text-align:left">NOT IN</td>
+<td style="text-align:left">不在指定的集合范围之内</td>
+</tr>
+<tr>
+<td style="text-align:left">ANY</td>
+<td style="text-align:left">子查询返回列表中，有任意一个满足即可</td>
+</tr>
+<tr>
+<td style="text-align:left">SOME</td>
+<td style="text-align:left">与ANY等同，使用SOME 的地方都可以使用ANY</td>
+</tr>
+<tr>
+<td style="text-align:left">ALL</td>
+<td style="text-align:left">子查询返回列表的所有值都必须满足</td>
+</tr>
+</tbody>
+</table>
+<pre><code>  	-- 列子查询
+  	-- 1. 查询”销售部“和”市场部“的所有员工信息
+  	-- a. 查询”销售部“ 和 &quot;市场部&quot; 的部门ID
+  	select id
+  	from dept
+  	where name = '销售部'
+  	   or name = '市场部';
+
+  	-- b.根据部门ID ，查询员工信息
+  	select *
+  	from emp
+  	where dept_id in (select id from dept where name = '销售部' or name = '市场部');
+
+
+  	-- 2.查询比财务部所有人工资都高的员工信息
+  	-- a. 查询财务部所有人工资
+  	select id
+  	from dept
+  	where name = '财务部';
+
+  	select salary
+  	from emp
+  	where dept_id = (select id from dept where name = '财务部');
+  	-- b. 查询比财务部所有人工资都高的员工信息
+  	select *
+  	from emp
+  	where salary &gt; all (select salary from emp where dept_id = (select id from dept where name = '财务部'));
+
+
+  	-- 3.查询比研发部其中任意一人工资高的员工信息
+  	-- a.查询研发部所有人工资
+  	select salary
+  	from emp
+  	where dept_id = (select id from dept where name = '研发部');
+
+  	-- b.比研发部任意一人工资高的员工信息
+  	select *
+  	from emp
+  	where salary &gt; any (select salary from emp where dept_id = (select id from dept where name = '研发部'));
+</code></pre>
+</li>
+<li>
+<p>行子查询</p>
+<pre><code>  子查询返回的结果是一行(可以是多列),这种子查询称为行子查询。
+  常用的操作符：= 、 &lt;&gt; 、 IN 、 NOT IN 
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><font color ="red" >操作符</th>
+<th style="text-align:left"><font color ="red" >描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">IN</td>
+<td style="text-align:left">在指定的集合范围之内，多选一</td>
+</tr>
+<tr>
+<td style="text-align:left">NOT IN</td>
+<td style="text-align:left">不在指定的集合范围之内</td>
+</tr>
+<tr>
+<td style="text-align:left">ANY</td>
+<td style="text-align:left">子查询返回列表中，有任意一个满足即可</td>
+</tr>
+<tr>
+<td style="text-align:left">SOME</td>
+<td style="text-align:left">与ANY等同，使用SOME 的地方都可以使用ANY</td>
+</tr>
+<tr>
+<td style="text-align:left">ALL</td>
+<td style="text-align:left">子查询返回列表的所有值都必须满足</td>
+</tr>
+</tbody>
+</table>
+<pre><code>  -- 行子查询
+  -- 1.查询与“张无忌”薪资和直属领导相同的员工信息
+  -- a. 查询张无忌的薪资和直属领导
+  select salary ,managerid from emp where name = '张无忌';
+
+
+  -- b.查询与张无忌薪资和直属领导相同的员工信息
+  select * from emp where  (salary,managerid) =(select salary ,managerid from emp where name = '张无忌');
+</code></pre>
+</li>
+<li>
+<p>表子查询<br>
+子查询返回的结果是多行多列，这种子查询称为表子查询。<br>
+常用操作符: IN</p>
+<pre><code>  -- 表子查询
+  -- 1.查询与&quot;鹿仗客&quot;，“宋远桥”的职位和薪资相同的员工信息
+  -- a.查询“鹿仗客”,&quot;宋远桥&quot;的职位和薪资
+  select job, salary
+  from emp
+  where name = '鹿杖客' or name = '宋远桥';
+
+
+  -- b.查询与&quot;鹿仗客&quot;，“宋远桥”的职位和薪资相同的员工信息
+  select *
+  from emp
+  where (job, salary) in (select job, salary from emp where name = '鹿杖客' or name = '宋远桥');
+
+  -- 2.查询入职日期是&quot;2006-01-01&quot;之后的员工信息，及其部门信息
+  -- a.查询入职日期之后的员工信息
+  select *
+  from emp
+  where entrydate &gt; '2006-01-01';
+
+  -- b.查询对应的部门信息
+  select *
+  from (select * from emp where entrydate &gt; '2006-01-01') e
+   left join dept on e.dept_id = dept.id;
+</code></pre>
+</li>
+</ul>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://alan52519.github.io/post/yue-shu/">
+              <h3 class="post-title">
+                下一篇：约束
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://alan52519.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

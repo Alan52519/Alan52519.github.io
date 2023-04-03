@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>存储引擎 | Alan52519</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://alan52519.github.io/favicon.ico?v=1680484039012">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://alan52519.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://alan52519.github.io">
+        <img class="avatar" src="https://alan52519.github.io/images/avatar.png?v=1680484039012" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://alan52519.github.io">
+        <h1 class="site-title">Alan52519</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">存储引擎</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2023-03-11</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://alan52519.github.io/tag/lxbRqZRf7/">
+                    Mysql
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <h2 id="存储引擎简介">存储引擎简介</h2>
+<p>1.在创建表时，指定存储引擎</p>
+<pre><code>	CREATE TABLE 表名(
+		字段1 字段1类型[COMMENT 字段1注释],
+		...
+		字段n 字段n类型[COMMENT 字段n注释]
+		
+	)ENGINE = INNODB[COMMENT 表注释];
+</code></pre>
+<p>2.查看当前数据库支持引擎</p>
+<pre><code>	SHOW ENGINES;
+</code></pre>
+<hr>
+<pre><code>	-- 查询创建表语句 -- 默认存储引擎：InnoDB
+	show create table account;
+
+	-- 查询当前数据库支持的存储引擎
+	SHOW ENGINES;
+
+	-- 创建表 my——myisam，并指定MyISAM存储引擎
+	CREATE table my_myisam(
+      id int,
+	  name varchar(10)
+	)engine = MyISAM;
+
+	-- 创建表 my——myisam，并指定MyISAM存储引擎
+	CREATE table my_memory(
+    id int,
+    name varchar(10)
+	)engine = MEMORY;
+</code></pre>
+<h2 id="存储引擎特点">存储引擎特点</h2>
+<ul>
+<li>
+<p>InnoDB</p>
+<ul>
+<li>
+<p>介绍<br>
+InnoDB是一种兼顾高可靠性和高性能的统用存储引擎，在MySQL5.5之后，InnoDB是默认的MySQL存储引擎。</p>
+</li>
+<li>
+<p>特点<br>
+DML操作遵循ACID模型，支持事务;<br>
+行级锁，提高并发访问性能；<br>
+支持外键FOREIGN KEY约束，保证数据的完整性和正确性。</p>
+</li>
+<li>
+<p>文件<br>
+xxx.ibd:xxx代表的是表名，InnoDB引擎的每张表都会对应这样一个表空间文件，存储该表的表结构(frm、sdi)、数据和索引。<br>
+参数: innodb_file_per_table</p>
+<figure data-type="image" tabindex="1"><img src="https://s2.loli.net/2023/03/11/JAMhEkqSUpgtZyl.png" alt="" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>MyISAM</p>
+<ul>
+<li>
+<p>介绍<br>
+MyISAM是早期的默认MySQL存储引擎。</p>
+</li>
+<li>
+<p>特点<br>
+不支持事务，不支持外键<br>
+支持表锁，不支持行锁<br>
+访问速度快</p>
+</li>
+<li>
+<p>文件<br>
+xxx.sdi：存储表结构信息<br>
+xxx.MYD：存储数据<br>
+xxx.MYI：存储索引<br>
+<img src="https://s2.loli.net/2023/03/11/s4nKXcAzhJofNiC.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>Memory</p>
+</li>
+<li>
+<p>介绍<br>
+Memory引擎的表数据是存储在内存当中的，由于受到硬件问题、或断电的影响，只能将这些表作为临时表或缓存使用。</p>
+</li>
+<li>
+<p>特点<br>
+内存存放<br>
+hash索引(默认)</p>
+</li>
+<li>
+<p>文件<br>
+xxx.sdi：存储表结构信息</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">特点</th>
+<th style="text-align:center">InnoDB</th>
+<th style="text-align:center">MyISAM</th>
+<th style="text-align:center">Memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><font color='red'>存储限制</td>
+<td style="text-align:center">64TB</td>
+<td style="text-align:center">有</td>
+<td style="text-align:center">有</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color='red'>事务安全</td>
+<td style="text-align:center"><strong>支持</strong></td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color='red'>锁机制</td>
+<td style="text-align:center"><strong>行锁</strong></td>
+<td style="text-align:center">表锁</td>
+<td style="text-align:center">表锁</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color='red'>B+tree索引</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color='red'>Hash索引</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">支持</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color='red'>全文索引</td>
+<td style="text-align:center">支持(5.6版本之后)</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color='red'>空间使用</td>
+<td style="text-align:center">高</td>
+<td style="text-align:center">低</td>
+<td style="text-align:center">N/A</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color='red'>内存使用</td>
+<td style="text-align:center">高</td>
+<td style="text-align:center">低</td>
+<td style="text-align:center">中等</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color='red'>批量插入速度</td>
+<td style="text-align:center">低</td>
+<td style="text-align:center">高</td>
+<td style="text-align:center">高</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color='red'>支持外键</td>
+<td style="text-align:center"><strong>支持</strong></td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:center"><em>加粗字体为InnoDB和 MyISAM 三大区别。</em></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<h2 id="存储引擎选择">存储引擎选择</h2>
+<p>在选择存储引擎时，应该根据应用系统的特点选择合适的存储引擎。对于复杂的应用系统，还可以根据实际情况选择多种存储引擎进行组合。</p>
+<ul>
+<li>InnoDB：是MySQL的默认存储引擎，支持事务、外键。如果对事务的完整性有比较高的要求，在并发条件下要求数据的一致性，数据的操作除了插入和查询之外，还包含很多的更新、删除操作，那么InnoDB存储引擎是比较合适的选择。</li>
+<li>MyISAM：如果应用是以读操作和插入操作为主，只有很少的更新和删除操作，并且对事务的完整性、并发性要求不是很高，那么选择这个存储引擎是非常合适的。</li>
+<li>MEMORY：将所有数据保存在内存中，访问速度快，通常用于临时表及缓存。MEMORY的缺陷就是对表的大小有限制，太大的表无法缓存在内存中，而且无法保障数据的安全性。</li>
+</ul>
+<h2 id="mysql结构">MySQL结构</h2>
+<p>1.体系结构<br>
+连接层、服务层、引擎层、存储层<br>
+2.存储引擎简介</p>
+<pre><code>SHOW ENGINES;
+CREATE TABLE xxxx(...)ENGINE = InnoDB；
+</code></pre>
+<p>3.存储引擎特点<br>
+InnoDB与MyISAM：事务、外键、行级锁<br>
+4.存储引擎应用<br>
+InnoDB：存储业务系统中对于事务、数据完整性要求较高的核心数据。<br>
+MyISAM：存储业务系统的非核心业务。</p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://alan52519.github.io/post/shi-wu/">
+              <h3 class="post-title">
+                下一篇：事务
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://alan52519.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

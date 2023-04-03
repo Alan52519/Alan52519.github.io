@@ -1,0 +1,309 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>String类、StringBuffer类和StringBuilder类 | Alan52519</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://alan52519.github.io/favicon.ico?v=1680484039012">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://alan52519.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://alan52519.github.io">
+        <img class="avatar" src="https://alan52519.github.io/images/avatar.png?v=1680484039012" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://alan52519.github.io">
+        <h1 class="site-title">Alan52519</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">String类、StringBuffer类和StringBuilder类</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2023-03-11</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://alan52519.github.io/tag/pnoC3cRQb/">
+                    Java基础
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <h2 id="string类">String类</h2>
+<ul>
+<li>String类的理解和创建<br>
+1.String对象用于保存字符串，也就是一组字符序列<br>
+2.字符串常量对象是用双引号扩起的字符序列。例如&quot;你好&quot;，&quot;Hello&quot;等<br>
+3.字符串的字符使用Unicode字符编码，一个字符(不区分字母还是汉字)占两个字节<br>
+4.String类较常用构造方法
+<ul>
+<li>String s1 = new String();</li>
+<li>String s2 = new String(String original);</li>
+<li>String s3 = new String(char[]a);</li>
+<li>String s4 = new String(char[] a,int startIndex,int count)</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2023/03/11/KL2ZcfVoDsdFEpX.png" alt="" loading="lazy"><br>
+5.String类结构<br>
+String 实现了 Serializable接口，可以串行化，通过网络传输。<br>
+实现了Comparable接口，可以进行比较。</p>
+<ul>
+<li>
+<p>创建 String对象的两种方式<br>
+1.方式一：直接赋值String s = &quot;hspedu&quot;;<br>
+2.方式二：调用构造器String s = new String(&quot;hspedu&quot;);</p>
+<p>1.方式一：先从常量池查看是否有&quot;hsp&quot;数据空间，如果有，直接指向，没有则重新创建，然后指向。s最终指向常量池的空间地址。<br>
+2.方式二：先在堆中创建空间，里面维护了value属性，指向常量池的hsp空间。如果常量池没有&quot;hsp&quot;，重新创建，如果有，直接通过value指向。最终指向的是堆中的内存空间。<br>
+3.内存布局<br>
+<img src="https://s2.loli.net/2023/03/11/qo2snT9p5PIbLrO.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>String类的特性</p>
+<ol>
+<li>String是一个final类，代表不可变的字符序列</li>
+<li>字符串是不可变的，一个字符串对象一旦被分配，其内容是不可变的。</li>
+</ol>
+</li>
+</ul>
+<p>题：</p>
+<pre><code>		  String a = &quot;hello&quot;;//创建a对象
+		  String b = &quot;abc&quot;;//创建b对象
+		  String c = a+b;//创建了几个对象？画出内存图
+</code></pre>
+<p>// c在堆中， a b 在常量池中， a+b执行完后c的字符串也放到池中。</p>
+<p>底层是StringBuider sb = new StringBuiler(); sb.append(a);<br>
+sb.append(b);sb是在堆中，并且append是在原来字符串的基础上追加的<br>
+重要规则，String c1 = &quot;ab&quot; +&quot;cd&quot;;常量相加，在池中。String c1 = a + b; 变量相加，在堆中。</p>
+<ul>
+<li>
+<p>String类的常见方法<br>
+String类是保存字符串常量的。每次更新都需要重新开辟空间，效率较低，因此java设计者还提供了StringBuilder和StringBuffer来增强String的功能，并提高效率。<br>
+- equals  //区分大小写，判断内容是否相等<br>
+- equalsIgnoreCas  //忽略大小写，判断内容是否相等<br>
+- length   //获取字符串长度<br>
+- IndexOf  //获取字符在字符串中第一次出现的索引，从0开始，找不到返回-1<br>
+- lastIndexOf  //获取字符在字符串中最后一次出现的索引，从0开始，找不到返回-1<br>
+- substring  //获取指定范围的字符串<br>
+- trim   //去除前后空格<br>
+- charAt:获取某索引处的字符<br>
+- toUpperCase<br>
+- toLowerCase<br>
+- concat<br>
+- compareTo //比较两字符串的大小<br>
+- split //分割字符串，对于某些分割字符，我们需要转义 比如 | \等<br>
+- toCharArray   //转换成字符数组<br>
+- format    // 格式化字符串，%s 字符串 %c 字符 %d 整型 %.2f 浮点型</p>
+<pre><code>  //format示例
+  String name = &quot;john&quot;;
+  int age = 10;
+  double score = 98.3/3;
+  char gender = '男';
+
+  String info = String.format(&quot;我的姓名是%s,年龄是%d,成绩是%.2f,性别是%c&quot;,name,age,score,gender);
+  System.out.println(info);
+</code></pre>
+</li>
+</ul>
+<h2 id="stringbuffer类">StringBuffer类</h2>
+<ul>
+<li>
+<p>StringBuffer代表可变的字符序列，可以对字符串内容进行增删。</p>
+</li>
+<li>
+<p>很多方法与String相同，但StringBuffer是可变长度的。</p>
+</li>
+<li>
+<p>StringBuffer是一个容器<br>
+<img src="https://s2.loli.net/2023/03/11/fT4coyzqtRhHMai.png" alt="" loading="lazy"><br>
+// 1.StringBuffer 的直接父类是 AbstractStringBuilder<br>
+// 2.StringBuffer 实现了Serializable，即StringBuffer的对象可以串行化<br>
+// 3.在父类中 AbstractStringBuilder 有属性 char[]value，不是final<br>
+// 该value数组存放 字符串内容，引出存放在堆中的<br>
+// 4.StringBuffer是一个final 类，不能被继承</p>
+</li>
+<li>
+<p>StringBuffer的构造器<br>
+<img src="https://s2.loli.net/2023/03/11/uTrzd4ntYaw2hQO.png" alt="" loading="lazy"></p>
+<p>//StringBuffer(String str)<br>
+public StringBuffer(String str) {<br>
+super(str.length() + 16);<br>
+append(str);<br>
+}</p>
+</li>
+<li>
+<p>StringBuffer 类的常用方法<br>
+1.增加 append()<br>
+2.删除 delete(start,end) //不含end<br>
+3.改 replace(start,end,string)// 将start--end之间的内容替换掉，不含end<br>
+4.查找 indexOf // 查找子串在字符串第一次出现的索引，如果找不到返回-1<br>
+5.插入 insert<br>
+6.获取长度 length</p>
+</li>
+</ul>
+<p><strong>String 对比 StringBuffer类</strong><br>
+1.String 保存的是字符串常量，里面的值不能更改，每次String类的更新实际上就是更改地址，效率较低//private final char value[]；<br>
+2.StringBuffer保存的是字符串变量，里面的值可以更改，每次StringBuffer的更新实际上可以更新内容，不用每次更新地址，效率较高<br>
+//char[] value； // 这个放在堆。</p>
+<hr>
+<ul>
+<li>
+<p>StringBuffer练习<br>
+输入商品名称和商品价格，要求打印效果实例，使用前面学习的方法完成：<br>
+商品名 商品价格<br>
+手机 123,564.59  // 价格 3,456,789.88<br>
+要求：价格的小数点前面每三位用逗号隔开 再输出</p>
+<pre><code>  public static void main(String[] args) {
+  Scanner sc = new Scanner(System.in);
+  System.out.println(&quot;请输入商品名和价格:&quot;);
+  String name = sc.next();
+  String price  = sc.next();
+  StringBuffer stringBuffer = new StringBuffer(price);
+  for (int i = stringBuffer.indexOf(&quot;.&quot;)-3; i &gt; 0; i-=3) {
+      stringBuffer.insert(i,&quot;,&quot;);
+  }
+  System.out.println(name+&quot; &quot;+stringBuffer);
+  }
+</code></pre>
+</li>
+</ul>
+<h2 id="stringbuilder类">StringBuilder类</h2>
+<p>1.一个可变的字符序列。此类提供一个与StringBuffer兼容的API，但不保证同步(StringBuilder不是线程安全的)。该类被设计用作StringBuffer的一个简易替换， <strong>用在字符串缓冲区被单个线程使用的时候</strong>。如果可能，建议优先采用该类，因为在大多数场景下，它比StringBuffer要快。<br>
+2.在StringBuiler上的主要操作是append 和 insert 方法，可重载这些方法，可以接受任意类型的数据。</p>
+<pre><code>Stringbuilder的方法没有 synchronizaed 关键字，在单线程情况下使用StringBuilder
+</code></pre>
+<hr>
+<h2 id="string-stringbuffer-和stringbuilder的比较">String、StringBuffer 和StringBuilder的比较</h2>
+<p>1.StringBuilder 和StringBuffer类似，代表可变字符序列，方法相同<br>
+2.String：不可变字符序列，效率低，但是复用率高<br>
+3.StringBuffer：可变字符序列、效率高(增删)、线程安全<br>
+4.StringBuilder： 可变字符序列、效率最高、线程不安全</p>
+<ul>
+<li>String、StringBuffer 和StringBuilder的选择<br>
+1.如果字符串存在大量的修改操作，一般使用StringBuffer 或 StringBuilder<br>
+2.如果字符串存在大量的修改操作，并单线程下使用，使用StringBuilder<br>
+3.如果字符串存在大量的修改操作，并多线程下使用，使用StringBuffer<br>
+4.如果字符串很少修改，被多个对象引用，使用String ，如配置信息</li>
+</ul>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://alan52519.github.io/post/cun-chu-yin-qing/">
+              <h3 class="post-title">
+                下一篇：存储引擎
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://alan52519.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

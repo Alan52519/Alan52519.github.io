@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>Vector底层源码 | Alan52519</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://alan52519.github.io/favicon.ico?v=1680484039012">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://alan52519.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://alan52519.github.io">
+        <img class="avatar" src="https://alan52519.github.io/images/avatar.png?v=1680484039012" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://alan52519.github.io">
+        <h1 class="site-title">Alan52519</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">Vector底层源码</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2023-03-05</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://alan52519.github.io/tag/pnoC3cRQb/">
+                    Java基础
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <ul>
+<li>
+<p>Vector 和 ArrayList 的比较</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">底层结构</th>
+<th style="text-align:left">版本</th>
+<th style="text-align:left">线程(同步)效率</th>
+<th style="text-align:left">扩容倍数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ArrayList</td>
+<td style="text-align:left">可变数组</td>
+<td style="text-align:left">jdk1.2</td>
+<td style="text-align:left">不安全,效率高</td>
+<td style="text-align:left">如果是无参，第一次是10，满后，就按1.5倍扩容  如果指定大小，则每次按1.5倍扩容</td>
+</tr>
+<tr>
+<td style="text-align:left">Vectort</td>
+<td style="text-align:left">可变数组 Object[]</td>
+<td style="text-align:left">jdk1.0</td>
+<td style="text-align:left">安全,效率不高</td>
+<td style="text-align:left">如果是无参，默认10，满后，就按2倍扩容  如果指定大小，则每次直接按2倍扩容</td>
+</tr>
+</tbody>
+</table>
+<h2 id="vector-底层结构和源码剖析">Vector 底层结构和源码剖析</h2>
+</li>
+<li>
+<p>Vector 的基本介绍</p>
+</li>
+</ul>
+<ol>
+<li>
+<p>Vector类的定义说明</p>
+<pre><code> 		public class Vector&lt;E&gt;
+ 		extends AbstractList&lt;E&gt;
+ 		impelemts List&lt;E&gt;, RandomAccess, Cloneable,Serializable
+</code></pre>
+</li>
+<li>
+<p>Vector 底层也是一个对象数组，protected Object[] elementData;</p>
+</li>
+<li>
+<p>Vector是线程同步的，即线程安全，Vector类的操作方法带有synchronized</p>
+<pre><code> 		public synchronized E get(int index){
+ 					if(index &gt;= elementCount)
+ 						throw new ArrayIndexOutOfBoundsException(index);
+ 					return elementData(index);
+ 		}
+</code></pre>
+</li>
+<li>
+<p>在开发中，需要线程同步安全时，考虑使用Vector<br>
+扩容代码:</p>
+<pre><code> 	    private void grow(int minCapacity) {
+         // overflow-conscious code
+         int oldCapacity = elementData.length;
+         int newCapacity = oldCapacity + ((capacityIncrement &gt; 0) ?
+                                  capacityIncrement : oldCapacity);
+         if (newCapacity - minCapacity &lt; 0)
+             newCapacity = minCapacity;
+         if (newCapacity - MAX_ARRAY_SIZE &gt; 0)
+             newCapacity = hugeCapacity(minCapacity);
+         elementData = Arrays.copyOf(elementData, newCapacity);
+         }
+</code></pre>
+</li>
+</ol>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://alan52519.github.io/post/mysql-xue-xi-ji-lu-03/">
+              <h3 class="post-title">
+                下一篇：MySql学习记录03
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://alan52519.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

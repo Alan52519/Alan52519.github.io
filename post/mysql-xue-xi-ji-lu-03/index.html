@@ -1,0 +1,289 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>MySql学习记录03 | Alan52519</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://alan52519.github.io/favicon.ico?v=1680484039012">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://alan52519.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://alan52519.github.io">
+        <img class="avatar" src="https://alan52519.github.io/images/avatar.png?v=1680484039012" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://alan52519.github.io">
+        <h1 class="site-title">Alan52519</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">MySql学习记录03</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2023-03-05</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://alan52519.github.io/tag/lxbRqZRf7/">
+                    Mysql
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <h3 id="sql">SQL</h3>
+<ul>
+<li>DQL-语法</li>
+</ul>
+<blockquote>
+<pre><code>  SELECT     字段列表
+  FROM        表名列表
+  WHERE    条件列表  [&gt; &gt;= &lt; &lt;= &lt;&gt; LIKE BETWEEN...AND IN ADN OR ]
+  GROUP BY     分组字段列表
+  HAVING      分组后条件列表
+  ORDER BY   排序字段列表  [升序asc 降序desc]
+  LIMIT   分页参数  [起始索引(从0开始)(页码-1)*每页记录数, 每页记录数]
+</code></pre>
+</blockquote>
+<ul>
+<li>DQL 执行顺序</li>
+</ul>
+<blockquote>
+<pre><code>    FROM        表名列表
+    WHERE    条件列表
+    GROUP BY     分组字段列表
+    HAVING       分组后条件列表
+    SELECT     字段列表
+   ORDER BY   排序字段列表 
+  LIMIT    分页参数
+</code></pre>
+</blockquote>
+<pre><code>    SELECT name,age from emp e where e.age &gt;15 order by age asc;
+</code></pre>
+<h3 id="dcl">DCL</h3>
+<ul>
+<li>
+<p>DCL-管理用户<br>
+1.查询用户</p>
+<pre><code>  USE mysql;
+  SELECT * FROM user;
+</code></pre>
+</li>
+</ul>
+<p>2.创建用户</p>
+<pre><code>	CREATE USR '用户名'@'主机名' IDENTIFIED BY '密码';
+</code></pre>
+<p>3.修改用户密码</p>
+<pre><code>ALTER USER '用户名'@'主机名' IDENTIFIED WITH mysql_native_password BY '新密码';
+</code></pre>
+<p>4.删除用户</p>
+<pre><code>	DROP USER '用户名'@'主机名';  
+</code></pre>
+<p>注意事项：</p>
+<ul>
+<li>主机名可以使用%通配。</li>
+<li>这类SQL开发人员操作的比较少，主要是DBA（Database Administrator 数据库管理员）使用。</li>
+</ul>
+<hr>
+<p>练习</p>
+<pre><code>	-- 创建用户 itcast，只能够在当前主机localhost访问，密码123456；
+	create user 'itcast'@'localhost' identified by '123456';
+
+	-- 创建用户heima,可以在任意主机访问该数据库，密码123456;
+	create user 'heima'@'%' identified by '123456';
+
+	-- 修改用户heima的访问密码为 1234;
+	alter user 'heima'@'%' identified with mysql_native_password BY '1234';
+
+	-- 删除itcast@localhost用户
+	drop  user 'itcast'@'localhost';
+</code></pre>
+<ul>
+<li>DCL-权限控制</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>权限</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ALL,ALL PRIVILEGES</td>
+<td>所有权限</td>
+</tr>
+<tr>
+<td>SELECT</td>
+<td>查询数据</td>
+</tr>
+<tr>
+<td>INSERT</td>
+<td>插入数据</td>
+</tr>
+<tr>
+<td>UPDATE</td>
+<td>修改数据</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>删除数据</td>
+</tr>
+<tr>
+<td>ALTER</td>
+<td>修改表</td>
+</tr>
+<tr>
+<td>DROP</td>
+<td>删除数据库/表</td>
+</tr>
+<tr>
+<td>CREATE</td>
+<td>创建数据库/表</td>
+</tr>
+</tbody>
+</table>
+<p>1.查询权限</p>
+<pre><code>SHOW GRANTS FRO '用户名@'主机名';
+</code></pre>
+<p>2.授予权限</p>
+<pre><code>GRANT 权限列表 ON 数据库名.表名 TO '用户名'@'主机名';
+</code></pre>
+<p>3.撤销权限</p>
+<pre><code>REVOKE 权限列表 ON 数据库名.表名 FROM '用户名@'主机名';
+</code></pre>
+<p>注意：</p>
+<ul>
+<li>多个权限之间，使用逗号分隔</li>
+<li>授权时，数据库名和表名可以使用* 进行通配，代表所有。</li>
+</ul>
+<hr>
+<p>练习</p>
+<pre><code>-- 查询权限
+show grants for heima;
+-- 授予权限
+ GRANT all on itcast.* to 'heima';
+
+-- 撤销权限
+revoke  all on itcast.* from heima ;
+</code></pre>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://alan52519.github.io/post/mysql-xue-xi-ji-lu-02/">
+              <h3 class="post-title">
+                下一篇：MySql学习记录02
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://alan52519.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

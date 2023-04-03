@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>Mysql学习记录01 | Alan52519</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://alan52519.github.io/favicon.ico?v=1680484039012">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://alan52519.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://alan52519.github.io">
+        <img class="avatar" src="https://alan52519.github.io/images/avatar.png?v=1680484039012" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://alan52519.github.io">
+        <h1 class="site-title">Alan52519</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">Mysql学习记录01</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2023-03-02</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://alan52519.github.io/tag/lxbRqZRf7/">
+                    Mysql
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <h3 id="202332">2023/3/2</h3>
+<h4 id="dql-语句">DQL 语句</h4>
+<h4 id="data-query-language">Data Query Language</h4>
+<ul>
+<li>DQL-语法</li>
+</ul>
+<blockquote>
+<pre><code>  SELECT     字段列表
+  FROM        表名列表
+  WHERE    条件列表
+  GROUP BY     分组字段列表
+  HAVING      分组后条件列表
+  ORDER BY   排序字段列表 
+  LIMIT   分页参数
+</code></pre>
+</blockquote>
+<ul>
+<li>基本查询</li>
+<li>条件查询(WHERE)</li>
+<li>聚合函数(count、max、min、avg、sum)</li>
+<li>分组查询(GROUP BY)</li>
+<li>排序查询(ORDER BY)</li>
+<li>分页查询(LIMIT)</li>
+<li>DQL-语法
+<ol>
+<li>查询多个字段</li>
+</ol>
+<blockquote>
+<pre><code>SELECT 字段1,字段2,字段3,... FROM 表名；
+SELECT  * FROM 表名;
+</code></pre>
+</blockquote>
+<ol start="2">
+<li>设置别名</li>
+</ol>
+<blockquote>
+<pre><code>SELECT 字段1 [AS 别名1],字段2[AS 别名2]...FROM 表名;   [as关键字可以省略，在查询与别名间加空格]
+</code></pre>
+</blockquote>
+<ol start="3">
+<li>去除重复记录</li>
+</ol>
+<blockquote>
+<pre><code>SELECT DISTINCT 字段列表 FROM 表名;
+</code></pre>
+</blockquote>
+</li>
+<li>DQL - 条件查询</li>
+</ul>
+<ol>
+<li>语法</li>
+</ol>
+<blockquote>
+<pre><code>SELECT 字段列表 FROM 表名 WHERE 条件列表;
+</code></pre>
+</blockquote>
+<ol start="2">
+<li>条件</li>
+</ol>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">比较运算符</th>
+<th style="text-align:left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">&gt;</td>
+<td style="text-align:left">大于</td>
+</tr>
+<tr>
+<td style="text-align:left">&gt;=</td>
+<td style="text-align:left">大于等于</td>
+</tr>
+<tr>
+<td style="text-align:left">&lt;</td>
+<td style="text-align:left">小于</td>
+</tr>
+<tr>
+<td style="text-align:left">&lt;=</td>
+<td style="text-align:left">小于</td>
+</tr>
+<tr>
+<td style="text-align:left">=</td>
+<td style="text-align:left">等于</td>
+</tr>
+<tr>
+<td style="text-align:left">&lt;&gt;或!=</td>
+<td style="text-align:left">不等于</td>
+</tr>
+<tr>
+<td style="text-align:left">BETWEEN...AND...</td>
+<td style="text-align:left">在某个范围之内(含最小、最大值)</td>
+</tr>
+<tr>
+<td style="text-align:left">IN(...)</td>
+<td style="text-align:left">在in之后的列表中的值，多选一</td>
+</tr>
+<tr>
+<td style="text-align:left">LIKE 占位符</td>
+<td style="text-align:left">模糊匹配(_匹配单个字符，%匹配任意个字符)</td>
+</tr>
+<tr>
+<td style="text-align:left">IS NULL</td>
+<td style="text-align:left">是NULL</td>
+</tr>
+<tr>
+<td style="text-align:left">AND 或 &amp;&amp;</td>
+<td style="text-align:left">并且(多个条件同时成立)</td>
+</tr>
+<tr>
+<td style="text-align:left">OR或</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">NOT 或 !</td>
+<td style="text-align:left">非，不是</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>条件查询</p>
+<blockquote>
+<pre><code>-- 1.查询年龄等于88 的员工
+SELECT * from emp WHERE age = 88;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code>-- 2.查询年龄小于20 的员工
+select * from emp WHERE age &lt; 20;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code>-- 3.查询年龄小于等于20 的员工
+select * from emp WHERE age &lt;= 20;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code>-- 4.查询没有身份证号的员工
+select * from emp WHERE idcard IS NULL;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code>-- 5.查询有身份证号的员工
+select * from emp WHERE idcard IS NOT NULL;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code>-- 6.查询年龄不等于88的员工
+select * from emp WHERE age !=88;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code>-- 7.查询年龄在15到20之间的员工
+select * from emp WHERE age BETWEEN 15 AND 20;
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code>-- 8.查询年龄小于25且性别为女的员工
+select * from emp WHERE age &lt;25 AND gender = '女';
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code>-- 9.查询年龄等于18 或 20 或 40 的员工
+-- select * from emp WHERE age =18 OR age =20 OR age = 40;
+select * from emp WHERE age IN (18,20,40);
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code>-- 10.查询年龄名字为两个字 的员工
+select * from emp WHERE name  LIKE '__';
+</code></pre>
+</blockquote>
+<blockquote>
+<pre><code>-- 11.查询身份证号末尾为 X 的员工
+select * from emp WHERE idcard  LIKE '%X';
+</code></pre>
+</blockquote>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://alan52519.github.io/post/mou-pao-pai-xu/">
+              <h3 class="post-title">
+                下一篇：冒泡排序
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://alan52519.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,341 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>Hash底层机制说明 | Alan52519</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://alan52519.github.io/favicon.ico?v=1680484039012">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://alan52519.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://alan52519.github.io">
+        <img class="avatar" src="https://alan52519.github.io/images/avatar.png?v=1680484039012" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://alan52519.github.io">
+        <h1 class="site-title">Alan52519</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">Hash底层机制说明</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2023-03-08</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://alan52519.github.io/tag/pnoC3cRQb/">
+                    Java基础
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <ul>
+<li>
+<p>分析HashSet的扩容和转成红黑树的机制</p>
+<p>1.HashSet底层是HashMap,第一次添加时，table数组扩容到16，临界值(threshold) =16 ×0.75(加载因子(loadFactor))  = 12<br>
+2.如果table数组使用到了临界值12，就会扩容到 16×2 = 32，新的临界值就是32*0.75 =24，依此类推<br>
+3.在java8中，如果一条链表的元素个数到达TREEIFY_THRESHOLD(默认是8)，并且table的大小&gt;= MIN_TREEIFY_CAPACITY(默认64),就会进行树化(红黑树),否则仍然采用数组进行扩容机制</p>
+<pre><code>  			&gt;&gt;&gt;&gt; public class HashSetSource {
+</code></pre>
+<p>public static void main(String[] args) {<br>
+HashSet hashSet = new HashSet();<br>
+hashSet.add(&quot;java&quot;);<br>
+hashSet.add(&quot;php&quot;);<br>
+hashSet.add(&quot;java&quot;);<br>
+System.out.println(&quot;set=&quot;+hashSet);</p>
+<pre><code>  //1.执行HashSet()
+  /*
+     public HashSet() {
+  map = new HashMap&lt;&gt;();
+      }
+
+    2.执行 add()
+     public boolean add(E e) {
+  return map.put(e, PRESENT)==null;
+      }
+    3.执行put() ，执行hash(key)方法，得到一个hash值 h = (key.hashCode())^(h &gt;&gt;&gt;16)
+    public V put(K key, V value) {
+  return putVal(hash(key), key, value, false, true);
+      }
+     4. 执行 putVal
+     final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
+             boolean evict) {
+  Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i;
+  //table 是HashMap的一个属性，存放Node[]数组
+  //if 语句表示当前table 是null，或者 大小 =0
+  //就是第一次扩容，到16个空间
+  if ((tab = table) == null || (n = tab.length) == 0)
+      n = (tab = resize()).length;
+  //(1)根据key 得到的hash值 计算 该key应该存放到table表的哪个索引位置
+  //并把这个位置的对象赋给 p
+  //(2.1)如果p为空，表示还没有存放过元素，就创建一个Node(key = &quot;java&quot;,value =PRESENT)
+  //(2.2)就放在该位置 tab[i] = newNode(hash, key, value, null);
+  if ((p = tab[i = (n - 1) &amp; hash]) == null)
+      tab[i] = newNode(hash, key, value, null);
+  else {
+      Node&lt;K,V&gt; e; K k;
+      //如果当前索引位置对应的链表的第一个元素和准备添加的key的hash值一样
+      //并且满足下面两个条件之一：
+        // （1） 准备加入的key和 p 指向的Node节点的key 是 同一个对象
+       //  （2）或者是p指向的Node 节点的key 的equals() 和准备加入的key比较后相同
+       // 不能加入
+      if (p.hash == hash &amp;&amp;
+          ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))
+          e = p;
+       // 判断p是不是一颗红黑树
+       // 如果是一颗红黑树，调用putTreeVal 添加
+      else if (p instanceof TreeNode)
+          e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value);
+      else {//如果table对应索引位置，已经是一个链表，就用for循环比较
+              //(1)依次和该链表的每一个元素比较后，都不相同
+              //添加后 判断链表是否元素个数到达8个 ，是， 则将当前链表转化为红黑树
+              // 转成红黑树时，进行判断，如果该 table数组的大小 &lt; 64
+              //  if(tab == null || ( n = tab.length)&lt;MIN_TREEIFY_CAPACITY(64))
+              //            resize();
+              // 如果上面条件成立，table扩容。
+              // 只有上面条件不成立时，转成红黑树
+              //(2)如果有相同的元素，break
+              //(3)
+          for (int binCount = 0; ; ++binCount) {
+              if ((e = p.next) == null) {
+                  p.next = newNode(hash, key, value, null);
+                  if (binCount &gt;= TREEIFY_THRESHOLD - 1) // -1 for 1st
+                      treeifyBin(tab, hash);
+                  break;
+              }
+              if (e.hash == hash &amp;&amp;
+                  ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))
+                  break;
+              p = e;
+          }
+      }
+      if (e != null) { // existing mapping for key
+          V oldValue = e.value;
+          if (!onlyIfAbsent || oldValue == null)
+              e.value = value;
+          afterNodeAccess(e);
+          return oldValue;
+      }
+  }
+  ++modCount;
+  if (++size &gt; threshold)
+      resize();
+  afterNodeInsertion(evict);
+  return null;
+  		 }
+         */
+
+
+    }
+  }
+</code></pre>
+</li>
+</ul>
+<hr>
+<p>扩容方法：resize()</p>
+<pre><code>/**
+ * Initializes or doubles table size.  If null, allocates in
+ * accord with initial capacity target held in field threshold.
+ * Otherwise, because we are using power-of-two expansion, the
+ * elements from each bin must either stay at same index, or move
+ * with a power of two offset in the new table.
+ *
+ * @return the table
+ */
+final Node&lt;K,V&gt;[] resize() {
+    Node&lt;K,V&gt;[] oldTab = table;
+    int oldCap = (oldTab == null) ? 0 : oldTab.length;
+    int oldThr = threshold;
+    int newCap, newThr = 0;
+    if (oldCap &gt; 0) {
+        if (oldCap &gt;= MAXIMUM_CAPACITY) {
+            threshold = Integer.MAX_VALUE;
+            return oldTab;
+        }
+        else if ((newCap = oldCap &lt;&lt; 1) &lt; MAXIMUM_CAPACITY &amp;&amp;
+                 oldCap &gt;= DEFAULT_INITIAL_CAPACITY)
+            newThr = oldThr &lt;&lt; 1; // double threshold
+    }
+    else if (oldThr &gt; 0) // initial capacity was placed in threshold
+        newCap = oldThr;
+    else {               // zero initial threshold signifies using defaults
+        newCap = DEFAULT_INITIAL_CAPACITY;
+        newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);
+    }
+    if (newThr == 0) {
+        float ft = (float)newCap * loadFactor;
+        newThr = (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (float)MAXIMUM_CAPACITY ?
+                  (int)ft : Integer.MAX_VALUE);
+    }
+    threshold = newThr;
+    @SuppressWarnings({&quot;rawtypes&quot;,&quot;unchecked&quot;})
+    Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])new Node[newCap];
+    table = newTab;
+    if (oldTab != null) {
+        for (int j = 0; j &lt; oldCap; ++j) {
+            Node&lt;K,V&gt; e;
+            if ((e = oldTab[j]) != null) {
+                oldTab[j] = null;
+                if (e.next == null)
+                    newTab[e.hash &amp; (newCap - 1)] = e;
+                else if (e instanceof TreeNode)
+                    ((TreeNode&lt;K,V&gt;)e).split(this, newTab, j, oldCap);
+                else { // preserve order
+                    Node&lt;K,V&gt; loHead = null, loTail = null;
+                    Node&lt;K,V&gt; hiHead = null, hiTail = null;
+                    Node&lt;K,V&gt; next;
+                    do {
+                        next = e.next;
+                        if ((e.hash &amp; oldCap) == 0) {
+                            if (loTail == null)
+                                loHead = e;
+                            else
+                                loTail.next = e;
+                            loTail = e;
+                        }
+                        else {
+                            if (hiTail == null)
+                                hiHead = e;
+                            else
+                                hiTail.next = e;
+                            hiTail = e;
+                        }
+                    } while ((e = next) != null);
+                    if (loTail != null) {
+                        loTail.next = null;
+                        newTab[j] = loHead;
+                    }
+                    if (hiTail != null) {
+                        hiTail.next = null;
+                        newTab[j + oldCap] = hiHead;
+                    }
+                }
+            }
+        }
+    }
+    return newTab;
+}
+</code></pre>
+<p><font color="red">当向hashset增加一个元素，Node - 加入table 就算是增加了一个元素，达到临界值就会扩容</font></p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://alan52519.github.io/post/mysql_-duo-biao-cha-xun/">
+              <h3 class="post-title">
+                下一篇：MySQL_多表查询
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://alan52519.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

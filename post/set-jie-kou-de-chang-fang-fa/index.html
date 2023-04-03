@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title> Set接口的常方法 | Alan52519</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://alan52519.github.io/favicon.ico?v=1680484039012">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://alan52519.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://alan52519.github.io">
+        <img class="avatar" src="https://alan52519.github.io/images/avatar.png?v=1680484039012" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://alan52519.github.io">
+        <h1 class="site-title">Alan52519</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title"> Set接口的常方法</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2023-03-06</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://alan52519.github.io/tag/pnoC3cRQb/">
+                    Java基础
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <ul>
+<li>Set接口的基本介绍</li>
+</ul>
+<ol>
+<li>无序 (添加和取出的顺序不一致),没有索引[后面演示]<br>
+2）不允许重复元素，所以最多包含一个null<br>
+3）JDK API中Set接口的实现类有：<br>
+<img src="https://s2.loli.net/2023/03/06/yj3S2bFAxBsOtUV.png" alt="" loading="lazy"></li>
+</ol>
+<ul>
+<li>
+<p>Set接口的常用方法<br>
+和List接口一样，Set接口也是Collection的子接口，因此，常用的方法和Collection接口一样。</p>
+</li>
+<li>
+<p>Set接口的遍历方式</p>
+<p>同Collection的遍历方式一样，因为Set接口是Collection接口的子接口。<br>
+1.可以使用迭代器<br>
+2.增强for<br>
+3.不能使用索引的方式来获取</p>
+<pre><code>  System.out.println(set);
+  System.out.println(&quot;使用迭代器&quot;);
+  Iterator iterator = set.iterator();
+  while (iterator.hasNext()){
+      Object object = iterator.next();
+      System.out.println(&quot;obj=&quot;+object);
+  }
+
+  System.out.println(&quot;增强for循环&quot;);
+  for (Object o :set) {
+      System.out.println(o);
+  }
+  //set接口对象不能通过索引获取
+</code></pre>
+</li>
+</ul>
+<h1 id="set接口的实现类-hashset">Set接口的实现类-HashSet</h1>
+<ul>
+<li>
+<p>HashSet的全面说明<br>
+1.HashSet实现了Set接口<br>
+2.HashSet实际上是HashMap,看下源码。</p>
+<pre><code>   /*
+    public HashSet() {
+      map = new HashMap&lt;&gt;();
+      }
+   */
+  Set hashSet = new HashSet();
+</code></pre>
+<p>3.可以存放null值，但只能有一个null<br>
+4.HashSet不保证元素是有序的，取决于hash后，再确定索引的结果。<br>
+不保证存放元素的顺序。<br>
+5.不能有重复元素/对象。和Set接口属性一致。</p>
+</li>
+<li>
+<p>HashSet底层机制说明<br>
+-分析HashSet的添加元素底层是如何实现(hash()+equals())<br>
+1.HashSet底层是 HashMap<br>
+2.添加一个元素时，先得到hash值 转成 索引值<br>
+3.找到存储数据表table，看这个索引位置是否已经存放有元素<br>
+4.如果没有，直接加入<br>
+5.如果有，调用equals比较，结果相同，放弃添加，结果不同，则添加到最后<br>
+6.在Java8中，如果一条链表的元素个数超过TREEIFY_THRESHOLD(默认是8)，并且table的大小 &gt;= MIN_TREEIFY_CAPACITY(默认64),就会进行树化，(红黑树)<br>
+<img src="https://s2.loli.net/2023/03/06/i4xAvNIdzYuwWpc.png" alt="" loading="lazy"></p>
+</li>
+</ul>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://alan52519.github.io/post/mysql-xue-xi-ji-lu-han-shu/">
+              <h3 class="post-title">
+                下一篇：MySQL学习记录_函数
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://alan52519.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

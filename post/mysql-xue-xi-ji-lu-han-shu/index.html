@@ -1,0 +1,393 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>MySQL学习记录_函数 | Alan52519</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://alan52519.github.io/favicon.ico?v=1680484039012">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://alan52519.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://alan52519.github.io">
+        <img class="avatar" src="https://alan52519.github.io/images/avatar.png?v=1680484039012" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://alan52519.github.io">
+        <h1 class="site-title">Alan52519</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">MySQL学习记录_函数</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2023-03-06</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://alan52519.github.io/tag/lxbRqZRf7/">
+                    Mysql
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <h3 id="函数">函数</h3>
+<ul>
+<li>字符串函数
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">CONCAT(S1,S2,...Sn)</td>
+<td style="text-align:left">字符串拼接，将S1,S2,...Sn拼接成一个字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">LOWER(str)</td>
+<td style="text-align:left">将字符串str全部转化为小写</td>
+</tr>
+<tr>
+<td style="text-align:left">UPEPER(str)</td>
+<td style="text-align:left">将字符串str全部转化为大写</td>
+</tr>
+<tr>
+<td style="text-align:left">LPAD(str,n,pad)</td>
+<td style="text-align:left">左填充，用字符串pad对str的左边进行填充，达到n个字符串长度</td>
+</tr>
+<tr>
+<td style="text-align:left">RPAD(str,n,pad)</td>
+<td style="text-align:left">右填充，用字符串pad对str的右边进行填充，达到n个字符串长度</td>
+</tr>
+<tr>
+<td style="text-align:left">TRIM(str)</td>
+<td style="text-align:left">去掉字符串头部和尾部的空格</td>
+</tr>
+<tr>
+<td style="text-align:left">SUBSTRING(str,start,len)</td>
+<td style="text-align:left">返回字符串str从start位置起的len个长度的字符串</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<hr>
+<pre><code>			-- concat
+			select concat('Hello','Mysql');
+
+			-- lower
+			select lower('HELLO');
+
+			-- upper
+			select upper('Hello');
+
+			-- lpad
+			select lpad('01',5,'-');
+
+			-- rpad
+			select rpad('01',5,'-');
+
+			-- trim
+			select trim(' Hello MySQL');
+
+			-- substring
+			select substring('Hello MySQL',1,5);
+
+
+			-- 1. 由于业务变更,企业员工的工号，统一为5位数，目前不足5位数的全部在前面补0。比如：1号员工的工号应该为00001。
+			update emp set workno  = lpad(workno,5,'0');
+</code></pre>
+<ul>
+<li>
+<p>数值函数<br>
+常见的数值函数</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">CEIL(x)</td>
+<td style="text-align:left">向上取整</td>
+</tr>
+<tr>
+<td style="text-align:left">FLOOR(x)</td>
+<td style="text-align:left">向下取整</td>
+</tr>
+<tr>
+<td style="text-align:left">MOD(x,y)</td>
+<td style="text-align:left">返回x/y的模</td>
+</tr>
+<tr>
+<td style="text-align:left">RAND()</td>
+<td style="text-align:left">返回0~1的随机数</td>
+</tr>
+<tr>
+<td style="text-align:left">ROUND(x,y)</td>
+<td style="text-align:left">求参数x的四舍五入的值，保留y位小数</td>
+</tr>
+</tbody>
+</table>
+<pre><code>  			-- 数值函数
+  			-- ceil
+  			select ceil(1.5);
+
+  			-- floor
+  			select floor(1.2);
+
+  			-- mod
+  			select mod(7,3);
+
+  			-- rand
+
+  			select rand();
+
+  			-- round
+  			select  round(2.325,2);
+  			
+  			-- 生成额一个六位数的随机验证码
+
+  			select lpad(round(rand(),6)*1000000,6,'0');
+</code></pre>
+</li>
+<li>
+<p>日期函数</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">CURDATE()</td>
+<td style="text-align:left">返回当前日期 [年月日]</td>
+</tr>
+<tr>
+<td style="text-align:left">CURTIME()</td>
+<td style="text-align:left">返回当前时间 [年月日 时分秒]</td>
+</tr>
+<tr>
+<td style="text-align:left">NOW()</td>
+<td style="text-align:left">返回当前日期和时间</td>
+</tr>
+<tr>
+<td style="text-align:left">YEAR(date)</td>
+<td style="text-align:left">获取指定date的年份</td>
+</tr>
+<tr>
+<td style="text-align:left">MONTH(date)</td>
+<td style="text-align:left">获取指定date的月份</td>
+</tr>
+<tr>
+<td style="text-align:left">DAY(date)</td>
+<td style="text-align:left">获取指定date的天数</td>
+</tr>
+<tr>
+<td style="text-align:left">DATE_ADD(date，INTERVAL expr type)</td>
+<td style="text-align:left">返回一个日期/时间值加上一个时间间隔expr后的时间值</td>
+</tr>
+<tr>
+<td style="text-align:left">DATEDIFF(date1，date2)</td>
+<td style="text-align:left">返回起始时间date1 和 结束时间date2之间的天数</td>
+</tr>
+</tbody>
+</table>
+<pre><code>  				-- 日期函数
+  			-- curdate()
+  			select curdate();
+
+  			-- curtime()
+  			select curtime();
+
+  			-- now()
+  			select  now();
+
+  			-- YEAR , MONTH ,DAY
+  			select YEAR(now());
+  			select MONTH(now());
+  			select day(now());
+
+  			-- DATE_ADD
+  			select date_add(now(),interval 70 DAY);
+  			select date_add(now(),interval 7 month );
+  			select date_add(now(),interval 7  year );
+
+  			-- datediff
+  			select datediff('2021-01-09','2009-12-09');
+
+  			-- 查看所有员工入职天数，倒序排序
+  			select name , datediff(curdate(),workdate) 'entrydays' from emp order by entrydays desc ;
+
+
+  - 流程函数
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">IF(value,t,f)</td>
+<td style="text-align:left">如果value为true，返回t，否则返回f</td>
+</tr>
+<tr>
+<td style="text-align:left">IFNULL(value1,value2)</td>
+<td style="text-align:left">如果value1不为空，返回value1，否则返回value2</td>
+</tr>
+<tr>
+<td style="text-align:left">CASE  WHEN [val1] THEN [res1] ... ELSE [default] END)</td>
+<td style="text-align:left">如果val1为true，返回res1,...否则返回default默认值</td>
+</tr>
+<tr>
+<td style="text-align:left">CASE[expr]WHEN [val1] THEN [res1] ... ELSE [default] END)</td>
+<td style="text-align:left">如果expr的值等于val1，返回res1，... 否则返回default默认值</td>
+</tr>
+</tbody>
+</table>
+<pre><code>  		-- case [expr] when
+  		select name,
+  		 (case workaddress when '北京' then '一线城市' when '上海' then '一线城市' else '二线城市' end) as '工作地址'
+  		from emp;
+
+
+  			
+  			-- case when		
+  			select name,
+  	(case when math &gt;=85 then '优秀' when  math &gt;= 60 then '及格' else '不及格' end ) '数学',
+  	(case when score.english &gt;= 85 then '优秀' when  english &gt;= 60 then '及格'else '不及格'end) '英语',
+  		(case when score.chinese &gt;= 85 then '优秀' when  chinese &gt;=  60 then '及格' else '不及格' end) '语文' 
+  from score;
+</code></pre>
+</li>
+</ul>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://alan52519.github.io/post/arraylist-he-linkedlist-bi-jiao/">
+              <h3 class="post-title">
+                下一篇：ArrayList和LinkedList比较
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://alan52519.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

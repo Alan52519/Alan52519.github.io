@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>Object类详解 [equals,hashCode] | Alan52519</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://alan52519.github.io/favicon.ico?v=1680484039012">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://alan52519.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://alan52519.github.io">
+        <img class="avatar" src="https://alan52519.github.io/images/avatar.png?v=1680484039012" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://alan52519.github.io">
+        <h1 class="site-title">Alan52519</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">Object类详解 [equals,hashCode]</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2023-03-10</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://alan52519.github.io/tag/pnoC3cRQb/">
+                    Java基础
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <ul>
+<li>
+<p>== 和 equals 的对比[面试题]</p>
+<ul>
+<li>
+<p>==是一个比较运算符</p>
+<ol>
+<li>== : 即可以判断基本类型，又可以判断引用类型</li>
+<li>== : 如果判断基本类型，判断的是值是否相等。示例：int i =10;double d = 10.0;</li>
+<li>== : 如果判断引用类型，判断的是地址是否相等，即判定是不是同一个对象</li>
+</ol>
+<p>案例：<br>
+// == 比较引用类型，比较的是地址		<br>
+A obj1 = new A();<br>
+A obj2 = new A();<br>
+A obj3 = obj1; //引用赋值，其实给的是地址</p>
+</li>
+</ul>
+</li>
+<li>
+<p>equals方法<br>
+4.equals :是Object类中的方法，只能判断引用类型；<br>
+5.默认判断的是地址是否相等，子类中往往重写该方法，用于判断内容是否相等。如Integer，String</p>
+<pre><code>  	//Object 的equals
+  	 public boolean equals(Object obj) {
+  	        return (this == obj);
+     }
+</code></pre>
+</li>
+</ul>
+<hr>
+<pre><code>//Integer的equals 
+public boolean equals(Object obj) {
+    if (obj instanceof Integer) {
+        return value == ((Integer)obj).intValue();
+    }
+    return false;
+}
+</code></pre>
+<hr>
+<pre><code>	//String类的equals
+public boolean equals(Object anObject) {
+	     if (this == anObject) {
+        return true;
+    }
+    if (anObject instanceof String) {
+        String anotherString = (String)anObject;
+        int n = value.length;
+        if (n == anotherString.value.length) {
+            char v1[] = value;
+            char v2[] = anotherString.value;
+            int i = 0;
+            while (n-- != 0) {
+                if (v1[i] != v2[i])
+                    return false;
+                i++;
+            }
+            return true;
+        }
+    }
+    return false;
+}
+</code></pre>
+<ul>
+<li>
+<p>hashCode方法</p>
+<p>1.提高具有哈希结构的容器效率<br>
+2.两个引用，如果指向的是同一个对象，则哈希值肯定是一样的<br>
+3.两个引用，如果指向的是不同对象，则哈希值是不一样的<br>
+4.哈希值主要根据地址号来的！不能完全将哈希值等价于地址<br>
+5.在集合中hashCode如果需要的话会重写<br>
+<img src="https://s2.loli.net/2023/03/10/wHjxrnCNbStPOq1.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>练习题 定义一个Employee类，该类包含private 成员属性name，age 要求：<br>
+1.创建三个Employee放入HashSet中<br>
+2.当name和age的值相同时，认为是相同员工，不能添加到HashSet集合中</p>
+<pre><code>   需要重写hashCode 和 equals方法 代码如下：
+
+   @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+   if (!(o instanceof Employee)) return false;
+   Employee employee = (Employee) o;
+    return age == employee.age &amp;&amp;
+          Objects.equals(name, employee.name);
+  }
+
+  @Override
+  public int hashCode() {
+   return Objects.hash(name, age);
+}
+</code></pre>
+</li>
+</ul>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://alan52519.github.io/post/hash-di-ceng-ji-zhi-shuo-ming/">
+              <h3 class="post-title">
+                下一篇：Hash底层机制说明
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://alan52519.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

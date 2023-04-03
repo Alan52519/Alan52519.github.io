@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>索引 | Alan52519</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://alan52519.github.io/favicon.ico?v=1680484039012">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://alan52519.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://alan52519.github.io">
+        <img class="avatar" src="https://alan52519.github.io/images/avatar.png?v=1680484039012" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://alan52519.github.io">
+        <h1 class="site-title">Alan52519</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">索引</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2023-03-13</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://alan52519.github.io/tag/lxbRqZRf7/">
+                    Mysql
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <ul>
+<li>介绍<br>
+索引(index)是帮助MySQL<font color = "red" >高效获取数据</font>的<font color = "red" >数据结构(有序)</font>。在数据之外，数据库系统还维护着满足特定查找算法的数据结构，这些数据结构以某种方式引用(指向)数据，这样就可以在这些数据结构上实现高级查找算法，这种数据结构就是索引。</li>
+<li>优缺点</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">优势</th>
+<th style="text-align:left">劣势</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">提高数据检索的效率，降低数据库的IO成本</td>
+<td style="text-align:left">索引列也是要占用空间的</td>
+</tr>
+<tr>
+<td style="text-align:left">通过索引列堆数据进行排序，降低数据排序的成本，降低CPU的消耗</td>
+<td style="text-align:left">索引大大提高了查询效率，同时却也降低更新表的速度，如对表进行INSERT、UPDATE、DELETE时，效率降低。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>索引结构<br>
+MySQL的索引是在存储引擎层实现的，不同的存储引擎有不同的结构，主要包含以下几种：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">索引结构</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><font color = "red" >B+Tree索引</td>
+<td style="text-align:center"><font color = "red" >最常见的索引类型，大部分引擎都支持B+树索引</td>
+</tr>
+<tr>
+<td style="text-align:center">Hash索引</td>
+<td style="text-align:center">底层数据结构是用哈希表实现的，只有精确匹配索引列的查询才有效，不支持范围查询</td>
+</tr>
+<tr>
+<td style="text-align:center">R-tree(空间索引)</td>
+<td style="text-align:center">空间索引是MyISAM引擎的一个特殊索引类型，主要用于地理空间数据类型，通常使用较少</td>
+</tr>
+<tr>
+<td style="text-align:center">Full-text(全文索引)</td>
+<td style="text-align:center">是一种通过建立倒排序索引，快速匹配文档的方式。类似于Lucene，Solr，ES</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">索引</th>
+<th style="text-align:center">InnoDB</th>
+<th style="text-align:center">MyISAM</th>
+<th style="text-align:center">Memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">B+tree索引</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+</tr>
+<tr>
+<td style="text-align:center">Hash索引</td>
+<td style="text-align:center">不支持</td>
+<td style="text-align:center">不支持</td>
+<td style="text-align:center">支持</td>
+</tr>
+<tr>
+<td style="text-align:center">R+tree索引</td>
+<td style="text-align:center">不支持</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">不支持</td>
+</tr>
+<tr>
+<td style="text-align:center">Full-text索引</td>
+<td style="text-align:center">5.6版本之后</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">不支持</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>二叉树<br>
+<font color= "red"> 二叉树缺点：顺序插入时，会形成一个链表，查询性能大大降低。大数据量情况下，层级较深，检索速度慢。<br>
+红黑树：大数据量情况下，层级较深，检索速度慢。</font></p>
+</li>
+<li>
+<p>B-Tree(多路平衡查找树)<br>
+以一颗最大度数(max-degree)为5(5阶)的b-tree为例(每个节点最多存储4个KEY，5个指针)<br>
+<img src="https://s2.loli.net/2023/03/13/ytXe4QjmZqkhd7w.png" alt="" loading="lazy"></p>
+</li>
+</ul>
+<blockquote>
+<p>插入 100 65  169 368 900 556 35 215 1200 234 888 158 90 1000 88 120 268 250 数据为例<br>
+<img src="https://s2.loli.net/2023/03/13/YFakO1q2uetrMds.png" alt="" loading="lazy"></p>
+</blockquote>
+<ul>
+<li>
+<p>B+Tree<br>
+以一颗最大度数(max-degree)为4(4阶)的B+tree为例：<br>
+<img src="https://s2.loli.net/2023/03/13/1PcDeKqbY65Au4p.png" alt="" loading="lazy"><br>
+<font color = "red"> 相对于B-tree的区别：<br>
+所有数据存在叶子节点中，叶子节点形成了单向链表，非叶子节点只起到索引作用。</font></p>
+</li>
+<li>
+<p>MySQL索引数据结构对经典的B+Tree进行了优化。在原B+Tree的基础上，增加了一个指向相邻子节点的链表指针，就形成了带有顺序指针的B+Tree，提高区间访问的性能。<br>
+<img src="https://s2.loli.net/2023/03/13/LH6kSyTDB9N2dCz.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>Hash<br>
+哈希索引就是采用一定的hash算法，将键值换算成新的hash值，映射到对应的槽位上，然后存储在hash表中。<br>
+<img src="https://s2.loli.net/2023/03/13/gpjRoVbnWdLSefh.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>hash索引特点</p>
+<ul>
+<li>1.Hash索引只能用于对等比较(=，in)，不支持范围查询(between，&gt;,&lt;,...)</li>
+<li>2.无法利用索引完成排序操作</li>
+<li>3.查询效率高，通常只要一次检索就可以了，效率通常要高于B+tree索引</li>
+</ul>
+</li>
+<li>
+<p>存储引擎支持<br>
+在 MySQL中，支持hash索引的是Memory引擎，而InnoDB中具有自适应hash功能，hash索引是存储引擎根据B+Tree索引在指定条件下自动构建的。</p>
+</li>
+</ul>
+<p>为什么 InnoDB存储引擎选择使用B+tree索引结构？</p>
+<ul>
+<li>相对于二叉树，层级更少，搜索效率高；</li>
+<li>对于B-tree，无论是叶子节点还是非叶子节点，都会保存数据，这样导致一页中存储的键值减少，指针跟着减少，要同样保存大量数据，只能增加树的高度，导致性能降低；</li>
+<li>相对于Hash索引，B+tree 支持范围匹配及排序操作。</li>
+</ul>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://alan52519.github.io/post/string-lei-stringbuffer-lei-he-stringbuilder-lei/">
+              <h3 class="post-title">
+                下一篇：String类、StringBuffer类和StringBuilder类
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://alan52519.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

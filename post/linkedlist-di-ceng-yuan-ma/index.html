@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>LinkedList底层源码 | Alan52519</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://alan52519.github.io/favicon.ico?v=1680484039012">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://alan52519.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://alan52519.github.io">
+        <img class="avatar" src="https://alan52519.github.io/images/avatar.png?v=1680484039012" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://alan52519.github.io">
+        <h1 class="site-title">Alan52519</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">LinkedList底层源码</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2023-03-05</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://alan52519.github.io/tag/pnoC3cRQb/">
+                    Java基础
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <h2 id="linkedlist-底层结构">LinkedList 底层结构</h2>
+<p>1.LinkedList底层实现了双线链表和双端队列特点<br>
+2.可以添加任意元素(元素可以重复)，包括null<br>
+3.线程不安全，没有实现同步</p>
+<ul>
+<li>
+<p>LinkedList的底层操作机制<br>
+1.LinkedList底层维护了一个双向链表<br>
+2.LinkedList中维护了两个属性first和last分别指向首节点和尾节点<br>
+3.每个结点(Node对象)，里面又维护了prev、next、item三个属性，其中通过prev指向前一个，通过next指向后一个节点，最终实现双向链表。<br>
+4.所以LinkedList的元素的添加和删除，不是通过数组完成的，相对来说效率较高。<br>
+5.模拟一个简单的双向链表[走代码]LinkedList01.java</p>
+<pre><code>  	class Node{
+  		public Object item;
+  		public Node next;
+  		public Node pre;
+  		public Node(Object name){
+  			this.item=name;
+  		}
+  		public String toString(){
+  			return &quot;Node name =&quot;+item;
+  		}
+  						
+  	}
+</code></pre>
+</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://s2.loli.net/2023/03/05/T3njPvR6FNMd9JB.png" alt="" loading="lazy"></figure>
+<ul>
+<li>
+<p>LinkedList的增删改查案例<br>
+LinkedListCRUD.java<br>
+添加源码：</p>
+<pre><code>  		1.  LinkedList linkedList = new LinkedList();
+  			public LinkedList(){}//空的构造方法
+  		2. 这时linkedList的属性 first = null last = null
+  		3.  执行添加 
+  			public boolean add(E e){
+  				likedList(e);
+  				return true;
+  			}
+  		4. 将新的节点，加入到双向链表的最后
+  						/**
+  	     * Links e as last element.
+  		     */
+  		  void linkLast(E e) {
+  		  final Node&lt;E&gt; l = last;
+  		 final Node&lt;E&gt; newNode = new Node&lt;&gt;(l, e, null);
+  		        last = newNode;
+  		        if (l == null)
+  		            first = newNode;
+  		        else
+  		            l.next = newNode;
+  		        size++;
+  		        modCount++;
+  		    }
+</code></pre>
+</li>
+</ul>
+<p>删除源码：</p>
+<pre><code>	1. 执行 removeFirst
+		public E remove(){
+				return removeFirst();
+		}
+	2. 执行 removeFirst()
+		public E removeFirst() {
+        final Node&lt;E&gt; f = first;
+        if (f == null)
+            throw new NoSuchElementException();
+        return unlinkFirst(f);
+    }
+    3. 执行unlinkFirst，将 f 指向的双向链表的第一个节点拿掉
+			    /**
+	     * Unlinks non-null first node f.
+	     */
+	    private E unlinkFirst(Node&lt;E&gt; f) {
+	        // assert f == first &amp;&amp; f != null;
+	        final E element = f.item;
+	        final Node&lt;E&gt; next = f.next;
+	        f.item = null;
+	        f.next = null; // help GC
+	        first = next;
+	        if (next == null)
+	            last = null;
+	        else
+	            next.prev = null;
+	        size--;
+	        modCount++;
+	        return element;
+	    }
+</code></pre>
+<p>源码：</p>
+<pre><code>public class LinkedListCRUD {
+public static void main(String[] args) {
+    LinkedList linkedList  = new LinkedList();
+
+    linkedList.add(1);
+    linkedList.add(2);
+    linkedList.add(3);
+
+    System.out.println(&quot;linkedList = &quot;+linkedList.toString());
+
+    //linkedList.remove();//默认删除第一个
+    linkedList.set(0,999);
+    //linkedList.remove(2);
+    //System.out.println(&quot;linkedList = &quot;+linkedList);
+    System.out.println(&quot;迭代器遍历：&quot;);
+    Iterator iterator = linkedList.iterator();
+    while(iterator.hasNext()){
+        Object obj = iterator.next();
+        System.out.println(obj);
+    }
+    System.out.println(&quot;增强for循环遍历:&quot;);
+    for (Object o :linkedList) {
+        System.out.println(&quot;o =&quot; + o);
+
+    }
+    System.out.println(&quot;普通for循环遍历:&quot;);
+    for (int i = 0; i &lt;linkedList.size() ; i++) {
+        System.out.println(linkedList.get(i));
+    }
+
+
+    }
+ }
+</code></pre>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://alan52519.github.io/post/vector-di-ceng-yuan-ma/">
+              <h3 class="post-title">
+                下一篇：Vector底层源码
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">温故而知新</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://alan52519.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

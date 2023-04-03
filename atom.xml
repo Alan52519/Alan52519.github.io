@@ -1,0 +1,1584 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://alan52519.github.io</id>
+    <title>Alan52519</title>
+    <updated>2023-04-03T01:07:22.466Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://alan52519.github.io"/>
+    <link rel="self" href="https://alan52519.github.io/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>https://alan52519.github.io/images/avatar.png</logo>
+    <icon>https://alan52519.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2023, Alan52519</rights>
+    <entry>
+        <title type="html"><![CDATA[计算机网络分层处理]]></title>
+        <id>https://alan52519.github.io/post/ji-suan-ji-wang-luo-fen-ceng-chu-li/</id>
+        <link href="https://alan52519.github.io/post/ji-suan-ji-wang-luo-fen-ceng-chu-li/">
+        </link>
+        <updated>2023-03-26T10:34:59.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="1-物理层">1. 物理层</h2>
+<h3 id="解决的问题">解决的问题</h3>
+<ul>
+<li>采用怎样的传输媒体</li>
+<li>采用怎样的物理接口</li>
+<li>要用怎样的信号表示0和1</li>
+</ul>
+<h2 id="2数据链路层">2.数据链路层</h2>
+<h3 id="解决的问题-2">解决的问题</h3>
+<ul>
+<li>如何表示网络中的主机(主机编址问题，如mac地址)</li>
+<li>如何从信号所表示的一串比特流中区分出地址和数据</li>
+<li>总线型网络已经淘汰</li>
+</ul>
+<h2 id="3网络层">3.网络层</h2>
+<h3 id="解决的问题-3">解决的问题</h3>
+<ul>
+<li>如何表示各网络以及网络中的各种主机(网络和主机共同编址的问题，例如IP地址)</li>
+<li>路由器如何转发分组，如何进行路由选择</li>
+</ul>
+<h2 id="4运输层">4.运输层</h2>
+<h3 id="解决的问题-4">解决的问题</h3>
+<ul>
+<li>如何解决进程之间基于网络的通信处理</li>
+<li>出现传输错误时，如何处理</li>
+</ul>
+<h2 id="5应用层">5.应用层</h2>
+<h3 id="解决的问题-5">解决的问题</h3>
+<ul>
+<li>通过应用进程间的交互来完成特定的网络应用</li>
+<li>支持万维网应用的HTTP协议</li>
+<li>支持电子邮件的SMTP协议</li>
+<li>支持文件传送的FTP协议</li>
+</ul>
+<h2 id="1-常见的计算机网络体系结构">1 常见的计算机网络体系结构</h2>
+<figure data-type="image" tabindex="1"><img src="https://s2.loli.net/2023/03/26/ULW5esB29Pgc1y4.png" alt="" loading="lazy"></figure>
+<h2 id="2-计算机网络体系结构分层的必要性">2 计算机网络体系结构分层的必要性</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">序号</th>
+<th style="text-align:right">层</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:right">应用层</td>
+<td style="text-align:center">解决通过应用进程的交互来实现特定网络应用的问题</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:right">运输层</td>
+<td style="text-align:center">解决进程之间基于网络的通信问题</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:right">网络层</td>
+<td style="text-align:center">解决分组在多个网络上传输(路由)的问题</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:right">数据链路层</td>
+<td style="text-align:center">解决分组在一个网络(或一段链路)上传输的问题</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:right">物理层</td>
+<td style="text-align:center">解决使用何种信号来传输比特的问题</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-计算机网络体系结构分层思想举例">3 计算机网络体系结构分层思想举例</h2>
+<p>应用于进程中的网络通信<br>
+<img src="https://s2.loli.net/2023/03/26/gXqNt1ryivGJuzd.png" alt="" loading="lazy"></p>
+<h2 id="4-计算机网络体系结构中的专用术语">4 计算机网络体系结构中的专用术语</h2>
+<h3 id="实体">实体</h3>
+<ul>
+<li>
+<p>任何可发送或接收信息的硬件或软件进程</p>
+</li>
+<li>
+<p>对等实体 发送双方相同层次中的实体</p>
+</li>
+<li>
+<p>协议 控制两个对等实体进行逻辑通信规则的集合</p>
+</li>
+<li>
+<p>协议三要素 语法 语义 同步</p>
+<ul>
+<li>语法 定义交换信息的格式</li>
+<li>语义 定义收发双方要完成的操作</li>
+<li>同步 定义收发双方的时序关系</li>
+</ul>
+</li>
+<li>
+<p>在协议控制下 两个对等实体间的逻辑通信使得本层能够向上一层提供服务</p>
+</li>
+<li>
+<p>要实现本层协议，还需要使用下面一层所提供的服务</p>
+</li>
+<li>
+<p>协议是&quot;水平的&quot;,服务是&quot;垂直的&quot;.</p>
+</li>
+<li>
+<p>实体看得见相邻下层所提供的服务，但并不知道实现该服务的具体协议。也就是说，下面的协议对上面的协议是&quot;透明&quot;的。</p>
+</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://s2.loli.net/2023/03/26/gXqNt1ryivGJuzd.png" alt="" loading="lazy"></figure>
+<ul>
+<li>
+<p>服务访问点 在同一系统中相邻两层的实体交换信息的逻辑接口，用于区分不同的服务类型。</p>
+<ul>
+<li>数据链路层的服务访问点为帧的&quot;类型&quot;字段。</li>
+<li>网络层的服务访问点为IP为数据报首部中的&quot;协议字段&quot;。</li>
+<li>运输层的服务访问点为&quot;端口号&quot;。</li>
+</ul>
+</li>
+<li>
+<p>服务原语 上层使用下层所提供的服务必须通过与下层交换一些命令，这些命令成为服务原语。</p>
+</li>
+<li>
+<p>协议数据单元PDU 对等层次之间传送的数据包称为该层的协议数据单元。</p>
+</li>
+<li>
+<p>服务数据单元SDU 同一系统内，层与层之间交换的数据包称为服务数据单元。</p>
+</li>
+<li>
+<p>多个SDU可以合成一个PDU；一个SDU也可以划分为几个PDU。</p>
+</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[索引]]></title>
+        <id>https://alan52519.github.io/post/suo-yin/</id>
+        <link href="https://alan52519.github.io/post/suo-yin/">
+        </link>
+        <updated>2023-03-13T14:22:21.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li>介绍<br>
+索引(index)是帮助MySQL<font color = "red" >高效获取数据</font>的<font color = "red" >数据结构(有序)</font>。在数据之外，数据库系统还维护着满足特定查找算法的数据结构，这些数据结构以某种方式引用(指向)数据，这样就可以在这些数据结构上实现高级查找算法，这种数据结构就是索引。</li>
+<li>优缺点</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">优势</th>
+<th style="text-align:left">劣势</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">提高数据检索的效率，降低数据库的IO成本</td>
+<td style="text-align:left">索引列也是要占用空间的</td>
+</tr>
+<tr>
+<td style="text-align:left">通过索引列堆数据进行排序，降低数据排序的成本，降低CPU的消耗</td>
+<td style="text-align:left">索引大大提高了查询效率，同时却也降低更新表的速度，如对表进行INSERT、UPDATE、DELETE时，效率降低。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>索引结构<br>
+MySQL的索引是在存储引擎层实现的，不同的存储引擎有不同的结构，主要包含以下几种：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">索引结构</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><font color = "red" >B+Tree索引</td>
+<td style="text-align:center"><font color = "red" >最常见的索引类型，大部分引擎都支持B+树索引</td>
+</tr>
+<tr>
+<td style="text-align:center">Hash索引</td>
+<td style="text-align:center">底层数据结构是用哈希表实现的，只有精确匹配索引列的查询才有效，不支持范围查询</td>
+</tr>
+<tr>
+<td style="text-align:center">R-tree(空间索引)</td>
+<td style="text-align:center">空间索引是MyISAM引擎的一个特殊索引类型，主要用于地理空间数据类型，通常使用较少</td>
+</tr>
+<tr>
+<td style="text-align:center">Full-text(全文索引)</td>
+<td style="text-align:center">是一种通过建立倒排序索引，快速匹配文档的方式。类似于Lucene，Solr，ES</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">索引</th>
+<th style="text-align:center">InnoDB</th>
+<th style="text-align:center">MyISAM</th>
+<th style="text-align:center">Memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">B+tree索引</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+</tr>
+<tr>
+<td style="text-align:center">Hash索引</td>
+<td style="text-align:center">不支持</td>
+<td style="text-align:center">不支持</td>
+<td style="text-align:center">支持</td>
+</tr>
+<tr>
+<td style="text-align:center">R+tree索引</td>
+<td style="text-align:center">不支持</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">不支持</td>
+</tr>
+<tr>
+<td style="text-align:center">Full-text索引</td>
+<td style="text-align:center">5.6版本之后</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">不支持</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>二叉树<br>
+<font color= "red"> 二叉树缺点：顺序插入时，会形成一个链表，查询性能大大降低。大数据量情况下，层级较深，检索速度慢。<br>
+红黑树：大数据量情况下，层级较深，检索速度慢。</font></p>
+</li>
+<li>
+<p>B-Tree(多路平衡查找树)<br>
+以一颗最大度数(max-degree)为5(5阶)的b-tree为例(每个节点最多存储4个KEY，5个指针)<br>
+<img src="https://s2.loli.net/2023/03/13/ytXe4QjmZqkhd7w.png" alt="" loading="lazy"></p>
+</li>
+</ul>
+<blockquote>
+<p>插入 100 65  169 368 900 556 35 215 1200 234 888 158 90 1000 88 120 268 250 数据为例<br>
+<img src="https://s2.loli.net/2023/03/13/YFakO1q2uetrMds.png" alt="" loading="lazy"></p>
+</blockquote>
+<ul>
+<li>
+<p>B+Tree<br>
+以一颗最大度数(max-degree)为4(4阶)的B+tree为例：<br>
+<img src="https://s2.loli.net/2023/03/13/1PcDeKqbY65Au4p.png" alt="" loading="lazy"><br>
+<font color = "red"> 相对于B-tree的区别：<br>
+所有数据存在叶子节点中，叶子节点形成了单向链表，非叶子节点只起到索引作用。</font></p>
+</li>
+<li>
+<p>MySQL索引数据结构对经典的B+Tree进行了优化。在原B+Tree的基础上，增加了一个指向相邻子节点的链表指针，就形成了带有顺序指针的B+Tree，提高区间访问的性能。<br>
+<img src="https://s2.loli.net/2023/03/13/LH6kSyTDB9N2dCz.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>Hash<br>
+哈希索引就是采用一定的hash算法，将键值换算成新的hash值，映射到对应的槽位上，然后存储在hash表中。<br>
+<img src="https://s2.loli.net/2023/03/13/gpjRoVbnWdLSefh.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>hash索引特点</p>
+<ul>
+<li>1.Hash索引只能用于对等比较(=，in)，不支持范围查询(between，&gt;,&lt;,...)</li>
+<li>2.无法利用索引完成排序操作</li>
+<li>3.查询效率高，通常只要一次检索就可以了，效率通常要高于B+tree索引</li>
+</ul>
+</li>
+<li>
+<p>存储引擎支持<br>
+在 MySQL中，支持hash索引的是Memory引擎，而InnoDB中具有自适应hash功能，hash索引是存储引擎根据B+Tree索引在指定条件下自动构建的。</p>
+</li>
+</ul>
+<p>为什么 InnoDB存储引擎选择使用B+tree索引结构？</p>
+<ul>
+<li>相对于二叉树，层级更少，搜索效率高；</li>
+<li>对于B-tree，无论是叶子节点还是非叶子节点，都会保存数据，这样导致一页中存储的键值减少，指针跟着减少，要同样保存大量数据，只能增加树的高度，导致性能降低；</li>
+<li>相对于Hash索引，B+tree 支持范围匹配及排序操作。</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[String类、StringBuffer类和StringBuilder类]]></title>
+        <id>https://alan52519.github.io/post/string-lei-stringbuffer-lei-he-stringbuilder-lei/</id>
+        <link href="https://alan52519.github.io/post/string-lei-stringbuffer-lei-he-stringbuilder-lei/">
+        </link>
+        <updated>2023-03-11T12:09:39.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="string类">String类</h2>
+<ul>
+<li>String类的理解和创建<br>
+1.String对象用于保存字符串，也就是一组字符序列<br>
+2.字符串常量对象是用双引号扩起的字符序列。例如&quot;你好&quot;，&quot;Hello&quot;等<br>
+3.字符串的字符使用Unicode字符编码，一个字符(不区分字母还是汉字)占两个字节<br>
+4.String类较常用构造方法
+<ul>
+<li>String s1 = new String();</li>
+<li>String s2 = new String(String original);</li>
+<li>String s3 = new String(char[]a);</li>
+<li>String s4 = new String(char[] a,int startIndex,int count)</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2023/03/11/KL2ZcfVoDsdFEpX.png" alt="" loading="lazy"><br>
+5.String类结构<br>
+String 实现了 Serializable接口，可以串行化，通过网络传输。<br>
+实现了Comparable接口，可以进行比较。</p>
+<ul>
+<li>
+<p>创建 String对象的两种方式<br>
+1.方式一：直接赋值String s = &quot;hspedu&quot;;<br>
+2.方式二：调用构造器String s = new String(&quot;hspedu&quot;);</p>
+<p>1.方式一：先从常量池查看是否有&quot;hsp&quot;数据空间，如果有，直接指向，没有则重新创建，然后指向。s最终指向常量池的空间地址。<br>
+2.方式二：先在堆中创建空间，里面维护了value属性，指向常量池的hsp空间。如果常量池没有&quot;hsp&quot;，重新创建，如果有，直接通过value指向。最终指向的是堆中的内存空间。<br>
+3.内存布局<br>
+<img src="https://s2.loli.net/2023/03/11/qo2snT9p5PIbLrO.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>String类的特性</p>
+<ol>
+<li>String是一个final类，代表不可变的字符序列</li>
+<li>字符串是不可变的，一个字符串对象一旦被分配，其内容是不可变的。</li>
+</ol>
+</li>
+</ul>
+<p>题：</p>
+<pre><code>		  String a = &quot;hello&quot;;//创建a对象
+		  String b = &quot;abc&quot;;//创建b对象
+		  String c = a+b;//创建了几个对象？画出内存图
+</code></pre>
+<p>// c在堆中， a b 在常量池中， a+b执行完后c的字符串也放到池中。</p>
+<p>底层是StringBuider sb = new StringBuiler(); sb.append(a);<br>
+sb.append(b);sb是在堆中，并且append是在原来字符串的基础上追加的<br>
+重要规则，String c1 = &quot;ab&quot; +&quot;cd&quot;;常量相加，在池中。String c1 = a + b; 变量相加，在堆中。</p>
+<ul>
+<li>
+<p>String类的常见方法<br>
+String类是保存字符串常量的。每次更新都需要重新开辟空间，效率较低，因此java设计者还提供了StringBuilder和StringBuffer来增强String的功能，并提高效率。<br>
+- equals  //区分大小写，判断内容是否相等<br>
+- equalsIgnoreCas  //忽略大小写，判断内容是否相等<br>
+- length   //获取字符串长度<br>
+- IndexOf  //获取字符在字符串中第一次出现的索引，从0开始，找不到返回-1<br>
+- lastIndexOf  //获取字符在字符串中最后一次出现的索引，从0开始，找不到返回-1<br>
+- substring  //获取指定范围的字符串<br>
+- trim   //去除前后空格<br>
+- charAt:获取某索引处的字符<br>
+- toUpperCase<br>
+- toLowerCase<br>
+- concat<br>
+- compareTo //比较两字符串的大小<br>
+- split //分割字符串，对于某些分割字符，我们需要转义 比如 | \等<br>
+- toCharArray   //转换成字符数组<br>
+- format    // 格式化字符串，%s 字符串 %c 字符 %d 整型 %.2f 浮点型</p>
+<pre><code>  //format示例
+  String name = &quot;john&quot;;
+  int age = 10;
+  double score = 98.3/3;
+  char gender = '男';
+
+  String info = String.format(&quot;我的姓名是%s,年龄是%d,成绩是%.2f,性别是%c&quot;,name,age,score,gender);
+  System.out.println(info);
+</code></pre>
+</li>
+</ul>
+<h2 id="stringbuffer类">StringBuffer类</h2>
+<ul>
+<li>
+<p>StringBuffer代表可变的字符序列，可以对字符串内容进行增删。</p>
+</li>
+<li>
+<p>很多方法与String相同，但StringBuffer是可变长度的。</p>
+</li>
+<li>
+<p>StringBuffer是一个容器<br>
+<img src="https://s2.loli.net/2023/03/11/fT4coyzqtRhHMai.png" alt="" loading="lazy"><br>
+// 1.StringBuffer 的直接父类是 AbstractStringBuilder<br>
+// 2.StringBuffer 实现了Serializable，即StringBuffer的对象可以串行化<br>
+// 3.在父类中 AbstractStringBuilder 有属性 char[]value，不是final<br>
+// 该value数组存放 字符串内容，引出存放在堆中的<br>
+// 4.StringBuffer是一个final 类，不能被继承</p>
+</li>
+<li>
+<p>StringBuffer的构造器<br>
+<img src="https://s2.loli.net/2023/03/11/uTrzd4ntYaw2hQO.png" alt="" loading="lazy"></p>
+<p>//StringBuffer(String str)<br>
+public StringBuffer(String str) {<br>
+super(str.length() + 16);<br>
+append(str);<br>
+}</p>
+</li>
+<li>
+<p>StringBuffer 类的常用方法<br>
+1.增加 append()<br>
+2.删除 delete(start,end) //不含end<br>
+3.改 replace(start,end,string)// 将start--end之间的内容替换掉，不含end<br>
+4.查找 indexOf // 查找子串在字符串第一次出现的索引，如果找不到返回-1<br>
+5.插入 insert<br>
+6.获取长度 length</p>
+</li>
+</ul>
+<p><strong>String 对比 StringBuffer类</strong><br>
+1.String 保存的是字符串常量，里面的值不能更改，每次String类的更新实际上就是更改地址，效率较低//private final char value[]；<br>
+2.StringBuffer保存的是字符串变量，里面的值可以更改，每次StringBuffer的更新实际上可以更新内容，不用每次更新地址，效率较高<br>
+//char[] value； // 这个放在堆。</p>
+<hr>
+<ul>
+<li>
+<p>StringBuffer练习<br>
+输入商品名称和商品价格，要求打印效果实例，使用前面学习的方法完成：<br>
+商品名 商品价格<br>
+手机 123,564.59  // 价格 3,456,789.88<br>
+要求：价格的小数点前面每三位用逗号隔开 再输出</p>
+<pre><code>  public static void main(String[] args) {
+  Scanner sc = new Scanner(System.in);
+  System.out.println(&quot;请输入商品名和价格:&quot;);
+  String name = sc.next();
+  String price  = sc.next();
+  StringBuffer stringBuffer = new StringBuffer(price);
+  for (int i = stringBuffer.indexOf(&quot;.&quot;)-3; i &gt; 0; i-=3) {
+      stringBuffer.insert(i,&quot;,&quot;);
+  }
+  System.out.println(name+&quot; &quot;+stringBuffer);
+  }
+</code></pre>
+</li>
+</ul>
+<h2 id="stringbuilder类">StringBuilder类</h2>
+<p>1.一个可变的字符序列。此类提供一个与StringBuffer兼容的API，但不保证同步(StringBuilder不是线程安全的)。该类被设计用作StringBuffer的一个简易替换， <strong>用在字符串缓冲区被单个线程使用的时候</strong>。如果可能，建议优先采用该类，因为在大多数场景下，它比StringBuffer要快。<br>
+2.在StringBuiler上的主要操作是append 和 insert 方法，可重载这些方法，可以接受任意类型的数据。</p>
+<pre><code>Stringbuilder的方法没有 synchronizaed 关键字，在单线程情况下使用StringBuilder
+</code></pre>
+<hr>
+<h2 id="string-stringbuffer-和stringbuilder的比较">String、StringBuffer 和StringBuilder的比较</h2>
+<p>1.StringBuilder 和StringBuffer类似，代表可变字符序列，方法相同<br>
+2.String：不可变字符序列，效率低，但是复用率高<br>
+3.StringBuffer：可变字符序列、效率高(增删)、线程安全<br>
+4.StringBuilder： 可变字符序列、效率最高、线程不安全</p>
+<ul>
+<li>String、StringBuffer 和StringBuilder的选择<br>
+1.如果字符串存在大量的修改操作，一般使用StringBuffer 或 StringBuilder<br>
+2.如果字符串存在大量的修改操作，并单线程下使用，使用StringBuilder<br>
+3.如果字符串存在大量的修改操作，并多线程下使用，使用StringBuffer<br>
+4.如果字符串很少修改，被多个对象引用，使用String ，如配置信息</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[存储引擎]]></title>
+        <id>https://alan52519.github.io/post/cun-chu-yin-qing/</id>
+        <link href="https://alan52519.github.io/post/cun-chu-yin-qing/">
+        </link>
+        <updated>2023-03-11T04:04:10.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="存储引擎简介">存储引擎简介</h2>
+<p>1.在创建表时，指定存储引擎</p>
+<pre><code>	CREATE TABLE 表名(
+		字段1 字段1类型[COMMENT 字段1注释],
+		...
+		字段n 字段n类型[COMMENT 字段n注释]
+		
+	)ENGINE = INNODB[COMMENT 表注释];
+</code></pre>
+<p>2.查看当前数据库支持引擎</p>
+<pre><code>	SHOW ENGINES;
+</code></pre>
+<hr>
+<pre><code>	-- 查询创建表语句 -- 默认存储引擎：InnoDB
+	show create table account;
+
+	-- 查询当前数据库支持的存储引擎
+	SHOW ENGINES;
+
+	-- 创建表 my——myisam，并指定MyISAM存储引擎
+	CREATE table my_myisam(
+      id int,
+	  name varchar(10)
+	)engine = MyISAM;
+
+	-- 创建表 my——myisam，并指定MyISAM存储引擎
+	CREATE table my_memory(
+    id int,
+    name varchar(10)
+	)engine = MEMORY;
+</code></pre>
+<h2 id="存储引擎特点">存储引擎特点</h2>
+<ul>
+<li>
+<p>InnoDB</p>
+<ul>
+<li>
+<p>介绍<br>
+InnoDB是一种兼顾高可靠性和高性能的统用存储引擎，在MySQL5.5之后，InnoDB是默认的MySQL存储引擎。</p>
+</li>
+<li>
+<p>特点<br>
+DML操作遵循ACID模型，支持事务;<br>
+行级锁，提高并发访问性能；<br>
+支持外键FOREIGN KEY约束，保证数据的完整性和正确性。</p>
+</li>
+<li>
+<p>文件<br>
+xxx.ibd:xxx代表的是表名，InnoDB引擎的每张表都会对应这样一个表空间文件，存储该表的表结构(frm、sdi)、数据和索引。<br>
+参数: innodb_file_per_table</p>
+<figure data-type="image" tabindex="1"><img src="https://s2.loli.net/2023/03/11/JAMhEkqSUpgtZyl.png" alt="" loading="lazy"></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>MyISAM</p>
+<ul>
+<li>
+<p>介绍<br>
+MyISAM是早期的默认MySQL存储引擎。</p>
+</li>
+<li>
+<p>特点<br>
+不支持事务，不支持外键<br>
+支持表锁，不支持行锁<br>
+访问速度快</p>
+</li>
+<li>
+<p>文件<br>
+xxx.sdi：存储表结构信息<br>
+xxx.MYD：存储数据<br>
+xxx.MYI：存储索引<br>
+<img src="https://s2.loli.net/2023/03/11/s4nKXcAzhJofNiC.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>Memory</p>
+</li>
+<li>
+<p>介绍<br>
+Memory引擎的表数据是存储在内存当中的，由于受到硬件问题、或断电的影响，只能将这些表作为临时表或缓存使用。</p>
+</li>
+<li>
+<p>特点<br>
+内存存放<br>
+hash索引(默认)</p>
+</li>
+<li>
+<p>文件<br>
+xxx.sdi：存储表结构信息</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">特点</th>
+<th style="text-align:center">InnoDB</th>
+<th style="text-align:center">MyISAM</th>
+<th style="text-align:center">Memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><font color='red'>存储限制</td>
+<td style="text-align:center">64TB</td>
+<td style="text-align:center">有</td>
+<td style="text-align:center">有</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color='red'>事务安全</td>
+<td style="text-align:center"><strong>支持</strong></td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color='red'>锁机制</td>
+<td style="text-align:center"><strong>行锁</strong></td>
+<td style="text-align:center">表锁</td>
+<td style="text-align:center">表锁</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color='red'>B+tree索引</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">支持</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color='red'>Hash索引</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">支持</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color='red'>全文索引</td>
+<td style="text-align:center">支持(5.6版本之后)</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color='red'>空间使用</td>
+<td style="text-align:center">高</td>
+<td style="text-align:center">低</td>
+<td style="text-align:center">N/A</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color='red'>内存使用</td>
+<td style="text-align:center">高</td>
+<td style="text-align:center">低</td>
+<td style="text-align:center">中等</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color='red'>批量插入速度</td>
+<td style="text-align:center">低</td>
+<td style="text-align:center">高</td>
+<td style="text-align:center">高</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color='red'>支持外键</td>
+<td style="text-align:center"><strong>支持</strong></td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:center"><em>加粗字体为InnoDB和 MyISAM 三大区别。</em></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<h2 id="存储引擎选择">存储引擎选择</h2>
+<p>在选择存储引擎时，应该根据应用系统的特点选择合适的存储引擎。对于复杂的应用系统，还可以根据实际情况选择多种存储引擎进行组合。</p>
+<ul>
+<li>InnoDB：是MySQL的默认存储引擎，支持事务、外键。如果对事务的完整性有比较高的要求，在并发条件下要求数据的一致性，数据的操作除了插入和查询之外，还包含很多的更新、删除操作，那么InnoDB存储引擎是比较合适的选择。</li>
+<li>MyISAM：如果应用是以读操作和插入操作为主，只有很少的更新和删除操作，并且对事务的完整性、并发性要求不是很高，那么选择这个存储引擎是非常合适的。</li>
+<li>MEMORY：将所有数据保存在内存中，访问速度快，通常用于临时表及缓存。MEMORY的缺陷就是对表的大小有限制，太大的表无法缓存在内存中，而且无法保障数据的安全性。</li>
+</ul>
+<h2 id="mysql结构">MySQL结构</h2>
+<p>1.体系结构<br>
+连接层、服务层、引擎层、存储层<br>
+2.存储引擎简介</p>
+<pre><code>SHOW ENGINES;
+CREATE TABLE xxxx(...)ENGINE = InnoDB；
+</code></pre>
+<p>3.存储引擎特点<br>
+InnoDB与MyISAM：事务、外键、行级锁<br>
+4.存储引擎应用<br>
+InnoDB：存储业务系统中对于事务、数据完整性要求较高的核心数据。<br>
+MyISAM：存储业务系统的非核心业务。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[事务]]></title>
+        <id>https://alan52519.github.io/post/shi-wu/</id>
+        <link href="https://alan52519.github.io/post/shi-wu/">
+        </link>
+        <updated>2023-03-10T14:42:06.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="事务简介">事务简介</h2>
+<p>事务是一组操作的集合，这组操作，要么全部执行成功，要么全部执行失败。</p>
+<pre><code>			START TRANSACTION;  开启事务
+			COMMIT /ROLLBACK; 提交/回滚事务
+</code></pre>
+<h2 id="事务的四大特性">事务的四大特性</h2>
+<ul>
+<li>原子性(Atomicity)： 事务是不可分割的最小操作单元，要么全部成功，要么全部失败。</li>
+<li>一致性(Cosistency)：事务完成时，必须是所有的数据都保持操作一致状态。</li>
+<li>隔离性(Isolation)：数据库系统提供的隔离机制，保证事务在不受外部并发操作影响的独立环境下运行。</li>
+<li>持久性(Durability)：事务一旦提交或回滚，它对数据库中的数据的改变就是永久。</li>
+</ul>
+<hr>
+<h2 id="并发事务问题">并发事务问题</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">问题</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><font color="red">脏读</td>
+<td style="text-align:left">一个事务读到另一个事务还没有提交的数据。</td>
+</tr>
+<tr>
+<td style="text-align:left"><font color="red"> 不可重复读</td>
+<td style="text-align:left">一个事务先后读取同一条记录，但两次读取的数据不同，称为不可重复读</td>
+</tr>
+<tr>
+<td style="text-align:left"><font color="red"> 幻读</td>
+<td style="text-align:left">一个事务按照条件查询数据时，没有对应的数据行，但是在插入数据时，又发现这行数据已经存在，好像出现了“幻影”。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="事务隔离级别">事务隔离级别</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">隔离级别</th>
+<th style="text-align:center">脏读</th>
+<th style="text-align:center">不可重复读</th>
+<th style="text-align:center">幻读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><font color="red">Read uncommitted</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color="red"> Read committed</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color="red">  Repeatable Read(默认)</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">√</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color="red">  Serializable</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">×</td>
+</tr>
+</tbody>
+</table>
+<pre><code>	- 查看事务隔离级别
+	SELECT @@TRANSACTION_ISOLATION;
+
+	-- 设置事务隔离级别
+	SET [SESSION | GLOBAL] TRANSACTION ISONLATION LEVEL {READ UNCOMMITTED | READ COMMITTED | REPEATALE READ | SERIALIZABLE } 
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Object类详解 [equals,hashCode]]]></title>
+        <id>https://alan52519.github.io/post/object-lei-xiang-jie-equalshashcode/</id>
+        <link href="https://alan52519.github.io/post/object-lei-xiang-jie-equalshashcode/">
+        </link>
+        <updated>2023-03-10T10:10:18.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li>
+<p>== 和 equals 的对比[面试题]</p>
+<ul>
+<li>
+<p>==是一个比较运算符</p>
+<ol>
+<li>== : 即可以判断基本类型，又可以判断引用类型</li>
+<li>== : 如果判断基本类型，判断的是值是否相等。示例：int i =10;double d = 10.0;</li>
+<li>== : 如果判断引用类型，判断的是地址是否相等，即判定是不是同一个对象</li>
+</ol>
+<p>案例：<br>
+// == 比较引用类型，比较的是地址		<br>
+A obj1 = new A();<br>
+A obj2 = new A();<br>
+A obj3 = obj1; //引用赋值，其实给的是地址</p>
+</li>
+</ul>
+</li>
+<li>
+<p>equals方法<br>
+4.equals :是Object类中的方法，只能判断引用类型；<br>
+5.默认判断的是地址是否相等，子类中往往重写该方法，用于判断内容是否相等。如Integer，String</p>
+<pre><code>  	//Object 的equals
+  	 public boolean equals(Object obj) {
+  	        return (this == obj);
+     }
+</code></pre>
+</li>
+</ul>
+<hr>
+<pre><code>//Integer的equals 
+public boolean equals(Object obj) {
+    if (obj instanceof Integer) {
+        return value == ((Integer)obj).intValue();
+    }
+    return false;
+}
+</code></pre>
+<hr>
+<pre><code>	//String类的equals
+public boolean equals(Object anObject) {
+	     if (this == anObject) {
+        return true;
+    }
+    if (anObject instanceof String) {
+        String anotherString = (String)anObject;
+        int n = value.length;
+        if (n == anotherString.value.length) {
+            char v1[] = value;
+            char v2[] = anotherString.value;
+            int i = 0;
+            while (n-- != 0) {
+                if (v1[i] != v2[i])
+                    return false;
+                i++;
+            }
+            return true;
+        }
+    }
+    return false;
+}
+</code></pre>
+<ul>
+<li>
+<p>hashCode方法</p>
+<p>1.提高具有哈希结构的容器效率<br>
+2.两个引用，如果指向的是同一个对象，则哈希值肯定是一样的<br>
+3.两个引用，如果指向的是不同对象，则哈希值是不一样的<br>
+4.哈希值主要根据地址号来的！不能完全将哈希值等价于地址<br>
+5.在集合中hashCode如果需要的话会重写<br>
+<img src="https://s2.loli.net/2023/03/10/wHjxrnCNbStPOq1.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>练习题 定义一个Employee类，该类包含private 成员属性name，age 要求：<br>
+1.创建三个Employee放入HashSet中<br>
+2.当name和age的值相同时，认为是相同员工，不能添加到HashSet集合中</p>
+<pre><code>   需要重写hashCode 和 equals方法 代码如下：
+
+   @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+   if (!(o instanceof Employee)) return false;
+   Employee employee = (Employee) o;
+    return age == employee.age &amp;&amp;
+          Objects.equals(name, employee.name);
+  }
+
+  @Override
+  public int hashCode() {
+   return Objects.hash(name, age);
+}
+</code></pre>
+</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Hash底层机制说明]]></title>
+        <id>https://alan52519.github.io/post/hash-di-ceng-ji-zhi-shuo-ming/</id>
+        <link href="https://alan52519.github.io/post/hash-di-ceng-ji-zhi-shuo-ming/">
+        </link>
+        <updated>2023-03-08T12:47:26.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li>
+<p>分析HashSet的扩容和转成红黑树的机制</p>
+<p>1.HashSet底层是HashMap,第一次添加时，table数组扩容到16，临界值(threshold) =16 ×0.75(加载因子(loadFactor))  = 12<br>
+2.如果table数组使用到了临界值12，就会扩容到 16×2 = 32，新的临界值就是32*0.75 =24，依此类推<br>
+3.在java8中，如果一条链表的元素个数到达TREEIFY_THRESHOLD(默认是8)，并且table的大小&gt;= MIN_TREEIFY_CAPACITY(默认64),就会进行树化(红黑树),否则仍然采用数组进行扩容机制</p>
+<pre><code>  			&gt;&gt;&gt;&gt; public class HashSetSource {
+</code></pre>
+<p>public static void main(String[] args) {<br>
+HashSet hashSet = new HashSet();<br>
+hashSet.add(&quot;java&quot;);<br>
+hashSet.add(&quot;php&quot;);<br>
+hashSet.add(&quot;java&quot;);<br>
+System.out.println(&quot;set=&quot;+hashSet);</p>
+<pre><code>  //1.执行HashSet()
+  /*
+     public HashSet() {
+  map = new HashMap&lt;&gt;();
+      }
+
+    2.执行 add()
+     public boolean add(E e) {
+  return map.put(e, PRESENT)==null;
+      }
+    3.执行put() ，执行hash(key)方法，得到一个hash值 h = (key.hashCode())^(h &gt;&gt;&gt;16)
+    public V put(K key, V value) {
+  return putVal(hash(key), key, value, false, true);
+      }
+     4. 执行 putVal
+     final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
+             boolean evict) {
+  Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i;
+  //table 是HashMap的一个属性，存放Node[]数组
+  //if 语句表示当前table 是null，或者 大小 =0
+  //就是第一次扩容，到16个空间
+  if ((tab = table) == null || (n = tab.length) == 0)
+      n = (tab = resize()).length;
+  //(1)根据key 得到的hash值 计算 该key应该存放到table表的哪个索引位置
+  //并把这个位置的对象赋给 p
+  //(2.1)如果p为空，表示还没有存放过元素，就创建一个Node(key = &quot;java&quot;,value =PRESENT)
+  //(2.2)就放在该位置 tab[i] = newNode(hash, key, value, null);
+  if ((p = tab[i = (n - 1) &amp; hash]) == null)
+      tab[i] = newNode(hash, key, value, null);
+  else {
+      Node&lt;K,V&gt; e; K k;
+      //如果当前索引位置对应的链表的第一个元素和准备添加的key的hash值一样
+      //并且满足下面两个条件之一：
+        // （1） 准备加入的key和 p 指向的Node节点的key 是 同一个对象
+       //  （2）或者是p指向的Node 节点的key 的equals() 和准备加入的key比较后相同
+       // 不能加入
+      if (p.hash == hash &amp;&amp;
+          ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))
+          e = p;
+       // 判断p是不是一颗红黑树
+       // 如果是一颗红黑树，调用putTreeVal 添加
+      else if (p instanceof TreeNode)
+          e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value);
+      else {//如果table对应索引位置，已经是一个链表，就用for循环比较
+              //(1)依次和该链表的每一个元素比较后，都不相同
+              //添加后 判断链表是否元素个数到达8个 ，是， 则将当前链表转化为红黑树
+              // 转成红黑树时，进行判断，如果该 table数组的大小 &lt; 64
+              //  if(tab == null || ( n = tab.length)&lt;MIN_TREEIFY_CAPACITY(64))
+              //            resize();
+              // 如果上面条件成立，table扩容。
+              // 只有上面条件不成立时，转成红黑树
+              //(2)如果有相同的元素，break
+              //(3)
+          for (int binCount = 0; ; ++binCount) {
+              if ((e = p.next) == null) {
+                  p.next = newNode(hash, key, value, null);
+                  if (binCount &gt;= TREEIFY_THRESHOLD - 1) // -1 for 1st
+                      treeifyBin(tab, hash);
+                  break;
+              }
+              if (e.hash == hash &amp;&amp;
+                  ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))
+                  break;
+              p = e;
+          }
+      }
+      if (e != null) { // existing mapping for key
+          V oldValue = e.value;
+          if (!onlyIfAbsent || oldValue == null)
+              e.value = value;
+          afterNodeAccess(e);
+          return oldValue;
+      }
+  }
+  ++modCount;
+  if (++size &gt; threshold)
+      resize();
+  afterNodeInsertion(evict);
+  return null;
+  		 }
+         */
+
+
+    }
+  }
+</code></pre>
+</li>
+</ul>
+<hr>
+<p>扩容方法：resize()</p>
+<pre><code>/**
+ * Initializes or doubles table size.  If null, allocates in
+ * accord with initial capacity target held in field threshold.
+ * Otherwise, because we are using power-of-two expansion, the
+ * elements from each bin must either stay at same index, or move
+ * with a power of two offset in the new table.
+ *
+ * @return the table
+ */
+final Node&lt;K,V&gt;[] resize() {
+    Node&lt;K,V&gt;[] oldTab = table;
+    int oldCap = (oldTab == null) ? 0 : oldTab.length;
+    int oldThr = threshold;
+    int newCap, newThr = 0;
+    if (oldCap &gt; 0) {
+        if (oldCap &gt;= MAXIMUM_CAPACITY) {
+            threshold = Integer.MAX_VALUE;
+            return oldTab;
+        }
+        else if ((newCap = oldCap &lt;&lt; 1) &lt; MAXIMUM_CAPACITY &amp;&amp;
+                 oldCap &gt;= DEFAULT_INITIAL_CAPACITY)
+            newThr = oldThr &lt;&lt; 1; // double threshold
+    }
+    else if (oldThr &gt; 0) // initial capacity was placed in threshold
+        newCap = oldThr;
+    else {               // zero initial threshold signifies using defaults
+        newCap = DEFAULT_INITIAL_CAPACITY;
+        newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);
+    }
+    if (newThr == 0) {
+        float ft = (float)newCap * loadFactor;
+        newThr = (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (float)MAXIMUM_CAPACITY ?
+                  (int)ft : Integer.MAX_VALUE);
+    }
+    threshold = newThr;
+    @SuppressWarnings({&quot;rawtypes&quot;,&quot;unchecked&quot;})
+    Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])new Node[newCap];
+    table = newTab;
+    if (oldTab != null) {
+        for (int j = 0; j &lt; oldCap; ++j) {
+            Node&lt;K,V&gt; e;
+            if ((e = oldTab[j]) != null) {
+                oldTab[j] = null;
+                if (e.next == null)
+                    newTab[e.hash &amp; (newCap - 1)] = e;
+                else if (e instanceof TreeNode)
+                    ((TreeNode&lt;K,V&gt;)e).split(this, newTab, j, oldCap);
+                else { // preserve order
+                    Node&lt;K,V&gt; loHead = null, loTail = null;
+                    Node&lt;K,V&gt; hiHead = null, hiTail = null;
+                    Node&lt;K,V&gt; next;
+                    do {
+                        next = e.next;
+                        if ((e.hash &amp; oldCap) == 0) {
+                            if (loTail == null)
+                                loHead = e;
+                            else
+                                loTail.next = e;
+                            loTail = e;
+                        }
+                        else {
+                            if (hiTail == null)
+                                hiHead = e;
+                            else
+                                hiTail.next = e;
+                            hiTail = e;
+                        }
+                    } while ((e = next) != null);
+                    if (loTail != null) {
+                        loTail.next = null;
+                        newTab[j] = loHead;
+                    }
+                    if (hiTail != null) {
+                        hiTail.next = null;
+                        newTab[j + oldCap] = hiHead;
+                    }
+                }
+            }
+        }
+    }
+    return newTab;
+}
+</code></pre>
+<p><font color="red">当向hashset增加一个元素，Node - 加入table 就算是增加了一个元素，达到临界值就会扩容</font></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[MySQL_多表查询]]></title>
+        <id>https://alan52519.github.io/post/mysql_-duo-biao-cha-xun/</id>
+        <link href="https://alan52519.github.io/post/mysql_-duo-biao-cha-xun/">
+        </link>
+        <updated>2023-03-08T07:33:02.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li>
+<p>概述 ：指从多张表中查询数据</p>
+</li>
+<li>
+<p>笛卡尔积：笛卡尔积指在数学中，两个集合A集合和B集合所有的组合情况。（在多表查询时，需要消除无效的笛卡尔积）</p>
+</li>
+<li>
+<p>多表查询分类</p>
+<ul>
+<li>
+<p>连接查询</p>
+<ul>
+<li>内连接：相当于查询A、B交集部分的数据</li>
+<li>外连接：
+<ul>
+<li>左外连接：查询左表所有数据，以及两张表交集部分数据</li>
+<li>右外连接：查询右表所有数据，以及两张表交集部分数据</li>
+</ul>
+</li>
+<li>自连接：当前表与自身的连接查询，自连接必须使用表别名</li>
+</ul>
+</li>
+<li>
+<p>子查询</p>
+</li>
+<li>
+<p>连接查询-内连接<br>
+-隐式内连接</p>
+<pre><code>   SELECT 字段列表 FROM 表1，表2 WHERE 条件...；
+</code></pre>
+</li>
+<li>
+<p>显示内连接</p>
+<pre><code>  SELECT 字段列表 FROM 表1 [INNER] JOIN 表2 ON 连接条件；
+</code></pre>
+<p><font color = "red" > 内连接查询的是两张表交集的部分.</font></p>
+<pre><code>  	-- 多表查询-- 笛卡尔积
+  select * from emp,dept where dept_id = dept.id;
+
+  -- 内连接演示
+  -- 1.查询每一个员工的姓名，及关联的部门的名称（隐式内连接实现）
+  -- 表结构：emp，dept
+  -- 连接条件：emp.dept_id = dept.id
+  select  e.name 姓名 ,d.name 部门 from emp e , dept d where e.dept_id = d.id;
+
+  -- 2.查询每一个员工的姓名，及关联的部门的名称（显式内连接实现）
+  -- 表结构 emp ， dept
+  -- 连接条件 emp.dept_id = dept.id
+  select e.name, d.name from emp e join dept d on d.id = e.dept_id
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="连接查询-外连接">连接查询— 外连接</h2>
+<p>外连接查询语法：</p>
+<ul>
+<li>
+<p>左外连接<br>
+<font color = " red" > 相当于查询表1(左表)的所有数据 包含表1 和表2交集部分的数据</font></p>
+<pre><code> SELECT 字段列表 FROM 表1 LEFT [OUTER] JOIN 表2 ON 条件...；		
+</code></pre>
+</li>
+<li>
+<p>右外连接<br>
+<font color = " red" > 相当于查询表2(右表)的所有数据 包含表1 和表2交集部分的数据</font></p>
+<pre><code>  SELECT 字段列表 FROM 表1 LEFT [OUTER] JOIN 表2 ON 条件...；		
+</code></pre>
+</li>
+</ul>
+<hr>
+<pre><code>-- 外连接演示
+	-- 1.查询emp表的所有数据，和对应的部门信息（左外连接）
+	-- 表结构：emp，dept
+	-- 连接条件：emp.dept_id = dept.id
+	select e.*,d.name
+	from emp e
+     left outer join dept d on d.id = e.dept_id;
+
+	-- 2.查询dept表的所有数据，和对应的部门信息（右外连接）
+	-- 表结构：emp，dept
+	-- 连接条件：emp.dept_id = dept.id
+	 select d.*,e.*
+	from emp e
+     right outer join dept d on d.id = e.dept_id;
+
+	select d.*,e.*
+	from dept d
+     left  outer join emp e on d.id = e.dept_id;
+</code></pre>
+<h2 id="连接查询-自连接">连接查询— 自连接</h2>
+<p>自连接查询语法：</p>
+<pre><code>SELECT 字段列表 FROM 表A 别名A JOIN 表名 别名B ON 条件...;
+</code></pre>
+<p><font color = " red" > 自连接查询，可以是内连接查询，也可以是外连接查询 </font></p>
+<pre><code>	-- 自连接
+	-- 1. 查询员工 及其 所属领导的名字
+	select e1.name 员工名字,e2.name 领导名字
+	from emp e1 join emp e2 where e1.managerid = e2.id;
+
+	-- 2.查询所有员工emp 及其领导的名字 emp, 如果员工没有领导，也需要查询出来
+	select e1.name ,e2.name
+	from emp e1 left join emp  e2 on e1.managerid = e2.id;
+</code></pre>
+<h2 id="联合查询-unionunion-all">联合查询-union,union all</h2>
+<p>对于union查询，就是把多次查询的结果合并起来，形成一个新的查询结果集。</p>
+<pre><code>SELECT 字段列表 FROM 表A...
+UNION[ALL]
+SELECT 字段列表 FROM 表B ...;
+</code></pre>
+<p><font color = " red" > 对于联合查询的多张表，列数必须保持一致，字段类型也需保持一致。<br>
+union all 直接合并处理，union 是去重后的结果。</font></p>
+<h2 id="子查询">子查询</h2>
+<ul>
+<li>
+<p>概念：SQL语句中嵌套SELECT语句，称为嵌套查询，又称为子查询。</p>
+<pre><code>  	SELECT * FROM t1 WHERE column1 =(SELECT column1 FROM t2);
+</code></pre>
+</li>
+</ul>
+<p><font color = " red" > 子查询外部的语句可以是INSERT/UPDATE/DELETE/SELECT的任何一个。</font></p>
+<ul>
+<li>
+<p>根据子查询结果不同，分为：</p>
+<ul>
+<li>标量子查询（子查询结果为单个值）</li>
+<li>列子查询（子查询结果为一列）</li>
+<li>行子查询（子查询结果为一行）</li>
+<li>表子查询（子查询结果为多列多行）</li>
+</ul>
+</li>
+<li>
+<p>根据子查询位置，分为：WHERE 之后、FROM 之后、SELECT 之后。</p>
+</li>
+<li>
+<p>标量子查询</p>
+<ul>
+<li>
+<p>子查询返回的结果是单个值（数字、字符串、日期等），最简单的形式，这种子查询称为标量子查询。常用的操作符：= &lt;&gt; &gt; &gt;= &lt; &lt;=</p>
+<pre><code>  -- -------子查询
+  -- 1，查询&quot;销售部&quot;的所有员工信息
+  -- a.查询&quot;销售部&quot;部门ID
+  select id from dept where name = '销售部';
+
+  -- b.查询&quot;销售部&quot;部门ID,查询员工信息  （表量子查询）
+  select * from emp where dept_id = (select id from dept where name = '销售部');
+
+  -- 2.查询在”方东白“之后入职的员工
+  -- a.查询方东白的入职日期
+  select  entrydate from emp where name ='方东白';
+
+  -- b.查询指定入职日期之后入职的员工信息
+  select * from emp where entrydate &gt; (select  entrydate from emp where name ='方东白');
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>列子查询</p>
+<pre><code>  子查询返回的结果是一列(可以是多行),这种子查询称为列子查询。
+  常用的操作符：IN 、 NOT IN 、 ANY 、 SOME 、ALL
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><font color ="red" >操作符</th>
+<th style="text-align:left"><font color ="red" >描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">IN</td>
+<td style="text-align:left">在指定的集合范围之内，多选一</td>
+</tr>
+<tr>
+<td style="text-align:left">NOT IN</td>
+<td style="text-align:left">不在指定的集合范围之内</td>
+</tr>
+<tr>
+<td style="text-align:left">ANY</td>
+<td style="text-align:left">子查询返回列表中，有任意一个满足即可</td>
+</tr>
+<tr>
+<td style="text-align:left">SOME</td>
+<td style="text-align:left">与ANY等同，使用SOME 的地方都可以使用ANY</td>
+</tr>
+<tr>
+<td style="text-align:left">ALL</td>
+<td style="text-align:left">子查询返回列表的所有值都必须满足</td>
+</tr>
+</tbody>
+</table>
+<pre><code>  	-- 列子查询
+  	-- 1. 查询”销售部“和”市场部“的所有员工信息
+  	-- a. 查询”销售部“ 和 &quot;市场部&quot; 的部门ID
+  	select id
+  	from dept
+  	where name = '销售部'
+  	   or name = '市场部';
+
+  	-- b.根据部门ID ，查询员工信息
+  	select *
+  	from emp
+  	where dept_id in (select id from dept where name = '销售部' or name = '市场部');
+
+
+  	-- 2.查询比财务部所有人工资都高的员工信息
+  	-- a. 查询财务部所有人工资
+  	select id
+  	from dept
+  	where name = '财务部';
+
+  	select salary
+  	from emp
+  	where dept_id = (select id from dept where name = '财务部');
+  	-- b. 查询比财务部所有人工资都高的员工信息
+  	select *
+  	from emp
+  	where salary &gt; all (select salary from emp where dept_id = (select id from dept where name = '财务部'));
+
+
+  	-- 3.查询比研发部其中任意一人工资高的员工信息
+  	-- a.查询研发部所有人工资
+  	select salary
+  	from emp
+  	where dept_id = (select id from dept where name = '研发部');
+
+  	-- b.比研发部任意一人工资高的员工信息
+  	select *
+  	from emp
+  	where salary &gt; any (select salary from emp where dept_id = (select id from dept where name = '研发部'));
+</code></pre>
+</li>
+<li>
+<p>行子查询</p>
+<pre><code>  子查询返回的结果是一行(可以是多列),这种子查询称为行子查询。
+  常用的操作符：= 、 &lt;&gt; 、 IN 、 NOT IN 
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><font color ="red" >操作符</th>
+<th style="text-align:left"><font color ="red" >描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">IN</td>
+<td style="text-align:left">在指定的集合范围之内，多选一</td>
+</tr>
+<tr>
+<td style="text-align:left">NOT IN</td>
+<td style="text-align:left">不在指定的集合范围之内</td>
+</tr>
+<tr>
+<td style="text-align:left">ANY</td>
+<td style="text-align:left">子查询返回列表中，有任意一个满足即可</td>
+</tr>
+<tr>
+<td style="text-align:left">SOME</td>
+<td style="text-align:left">与ANY等同，使用SOME 的地方都可以使用ANY</td>
+</tr>
+<tr>
+<td style="text-align:left">ALL</td>
+<td style="text-align:left">子查询返回列表的所有值都必须满足</td>
+</tr>
+</tbody>
+</table>
+<pre><code>  -- 行子查询
+  -- 1.查询与“张无忌”薪资和直属领导相同的员工信息
+  -- a. 查询张无忌的薪资和直属领导
+  select salary ,managerid from emp where name = '张无忌';
+
+
+  -- b.查询与张无忌薪资和直属领导相同的员工信息
+  select * from emp where  (salary,managerid) =(select salary ,managerid from emp where name = '张无忌');
+</code></pre>
+</li>
+<li>
+<p>表子查询<br>
+子查询返回的结果是多行多列，这种子查询称为表子查询。<br>
+常用操作符: IN</p>
+<pre><code>  -- 表子查询
+  -- 1.查询与&quot;鹿仗客&quot;，“宋远桥”的职位和薪资相同的员工信息
+  -- a.查询“鹿仗客”,&quot;宋远桥&quot;的职位和薪资
+  select job, salary
+  from emp
+  where name = '鹿杖客' or name = '宋远桥';
+
+
+  -- b.查询与&quot;鹿仗客&quot;，“宋远桥”的职位和薪资相同的员工信息
+  select *
+  from emp
+  where (job, salary) in (select job, salary from emp where name = '鹿杖客' or name = '宋远桥');
+
+  -- 2.查询入职日期是&quot;2006-01-01&quot;之后的员工信息，及其部门信息
+  -- a.查询入职日期之后的员工信息
+  select *
+  from emp
+  where entrydate &gt; '2006-01-01';
+
+  -- b.查询对应的部门信息
+  select *
+  from (select * from emp where entrydate &gt; '2006-01-01') e
+   left join dept on e.dept_id = dept.id;
+</code></pre>
+</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[约束]]></title>
+        <id>https://alan52519.github.io/post/yue-shu/</id>
+        <link href="https://alan52519.github.io/post/yue-shu/">
+        </link>
+        <updated>2023-03-07T13:24:44.000Z</updated>
+        <content type="html"><![CDATA[<p>1.概念：约束时作用于表中字段上的规则，用于限制存储在表中的数据。<br>
+2.目的：保证数据库中数据的正确、有效性和完整性。<br>
+3.分类：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">约束</th>
+<th>描述</th>
+<th style="text-align:left">关键字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">非空约束</td>
+<td>限制该字段的数据不能为null</td>
+<td style="text-align:left">NOT NULL</td>
+</tr>
+<tr>
+<td style="text-align:left">唯一约束</td>
+<td>保证该字段的所有数据都是唯一、不重复的</td>
+<td style="text-align:left">UNIQUE</td>
+</tr>
+<tr>
+<td style="text-align:left">主键约束</td>
+<td>主键是一行数据的唯一标识，要求非空且唯一</td>
+<td style="text-align:left">PRIMARY KEY</td>
+</tr>
+<tr>
+<td style="text-align:left">默认约束</td>
+<td>保存数据时，如果未指定该字段的值，则采用默认值</td>
+<td style="text-align:left">DEFAULT</td>
+</tr>
+<tr>
+<td style="text-align:left">检查约束</td>
+<td>保证字段值满足某一个条件</td>
+<td style="text-align:left">CHECK NULL</td>
+</tr>
+<tr>
+<td style="text-align:left">外键约束</td>
+<td>用来让两张表的数据之间建立连接，保证数据的一致性和完整性</td>
+<td style="text-align:left">FOREIGN KEY</td>
+</tr>
+</tbody>
+</table>
+<p><font face="微软雅黑" color="red" size="3">注意：约束时作用于表中字段上的，可以在创建表/修改表的时候添加约束。</font></p>
+<hr>
+<pre><code>		-- 约束演示
+		create table user(
+id int primary key auto_increment comment '主键',
+name varchar(10) not null unique  comment '姓名',
+age int check ( age&gt;0 &amp;&amp; age &lt;=120 )comment '年龄',
+status char(1) default '1' comment  '状态',
+gender char(1) comment '性别'
+	)comment '用户表';
+
+
+		-- 插入数据
+	insert into user(name, age, status, gender) VALUES ('Tom1',19,'1','男'),('Tom2',25,'0','男');
+	insert into user(name, age, status, gender) VALUES ('Tom3',19,'1','男');
+
+	insert into user(name, age, status, gender) VALUES (null,19,'1','男');
+	insert into user(name,age,status,gender) values ('Tom4',80,'1','男');
+	insert into user(name,age,status,gender) values ('Tom4',80,'1','男');
+	insert into user(name,age,gender) values ('Tom6','80','男');
+	insert into user(name,age,gender) values ('Tom7',121,'1','男');
+</code></pre>
+<ul>
+<li>
+<p>外键约束</p>
+<ul>
+<li>
+<p>概念 外键用来让两张表的数据之间建立连接，从而保证数据的一致性和完整性。</p>
+</li>
+<li>
+<p>语法</p>
+<ul>
+<li>
+<p>添加外键</p>
+<pre><code>  CREATE TABLE 表名(
+  	字段名 数据类型,
+  	...
+  	[CONSTRAINT] [外键名称]	 FOREIGN KEY (外键字段名) REFERENCES 主表(主表列名)		
+  );
+
+
+  ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY(外键字段名) REFERENCES 主表(主表列名);
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>删除/更新行为</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">行为</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">NO ACTION</td>
+<td style="text-align:left">当在父表中删除/更新对应记录时，首先检查该记录是否有对应外键，如果有则不允许删除/更新。(与RESTRICT一致)</td>
+</tr>
+<tr>
+<td style="text-align:left">RESTRICT</td>
+<td style="text-align:left">当在父表中删除/更新对应记录时，首先检查该记录是否有对应外键，如果有则不允许删除/更新。(与NO ACTION一致)</td>
+</tr>
+<tr>
+<td style="text-align:left">CASCADE</td>
+<td style="text-align:left">当在父表中删除/更新对应记录时，首先检查该记录是否有对应外键，如果有则也删除/更新外键在子表中的记录。</td>
+</tr>
+<tr>
+<td style="text-align:left">SET NULL</td>
+<td style="text-align:left">当在父表中删除/更新对应记录时，首先检查该记录是否有对应外键，如果有则设置子表中该外键的值为null(这就要求该外键允许取null)。</td>
+</tr>
+<tr>
+<td style="text-align:left">SET DEFAULT</td>
+<td style="text-align:left">父表有变更时，子表将外键列表设置成一个默认的值(Innodb不支持)</td>
+</tr>
+</tbody>
+</table>
+<pre><code>  ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY(外键字段) REFERENCES 主表名 (主表字段名) ON UPDATE CASCADE ON DELETE CASCADE;
+  
+  -- 外键的删除和更新行为
+  alter table emp
+  add constraint fk_emp_dept_id foreign key (dept_id) references dept (id) on update cascade on delete cascade;
+
+  alter table emp
+  add constraint fk_emp_dept_id foreign key (dept_id) references dept (id) on update set null on delete set null ;
+</code></pre>
+</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ Set接口的常方法]]></title>
+        <id>https://alan52519.github.io/post/set-jie-kou-de-chang-fang-fa/</id>
+        <link href="https://alan52519.github.io/post/set-jie-kou-de-chang-fang-fa/">
+        </link>
+        <updated>2023-03-06T13:29:45.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li>Set接口的基本介绍</li>
+</ul>
+<ol>
+<li>无序 (添加和取出的顺序不一致),没有索引[后面演示]<br>
+2）不允许重复元素，所以最多包含一个null<br>
+3）JDK API中Set接口的实现类有：<br>
+<img src="https://s2.loli.net/2023/03/06/yj3S2bFAxBsOtUV.png" alt="" loading="lazy"></li>
+</ol>
+<ul>
+<li>
+<p>Set接口的常用方法<br>
+和List接口一样，Set接口也是Collection的子接口，因此，常用的方法和Collection接口一样。</p>
+</li>
+<li>
+<p>Set接口的遍历方式</p>
+<p>同Collection的遍历方式一样，因为Set接口是Collection接口的子接口。<br>
+1.可以使用迭代器<br>
+2.增强for<br>
+3.不能使用索引的方式来获取</p>
+<pre><code>  System.out.println(set);
+  System.out.println(&quot;使用迭代器&quot;);
+  Iterator iterator = set.iterator();
+  while (iterator.hasNext()){
+      Object object = iterator.next();
+      System.out.println(&quot;obj=&quot;+object);
+  }
+
+  System.out.println(&quot;增强for循环&quot;);
+  for (Object o :set) {
+      System.out.println(o);
+  }
+  //set接口对象不能通过索引获取
+</code></pre>
+</li>
+</ul>
+<h1 id="set接口的实现类-hashset">Set接口的实现类-HashSet</h1>
+<ul>
+<li>
+<p>HashSet的全面说明<br>
+1.HashSet实现了Set接口<br>
+2.HashSet实际上是HashMap,看下源码。</p>
+<pre><code>   /*
+    public HashSet() {
+      map = new HashMap&lt;&gt;();
+      }
+   */
+  Set hashSet = new HashSet();
+</code></pre>
+<p>3.可以存放null值，但只能有一个null<br>
+4.HashSet不保证元素是有序的，取决于hash后，再确定索引的结果。<br>
+不保证存放元素的顺序。<br>
+5.不能有重复元素/对象。和Set接口属性一致。</p>
+</li>
+<li>
+<p>HashSet底层机制说明<br>
+-分析HashSet的添加元素底层是如何实现(hash()+equals())<br>
+1.HashSet底层是 HashMap<br>
+2.添加一个元素时，先得到hash值 转成 索引值<br>
+3.找到存储数据表table，看这个索引位置是否已经存放有元素<br>
+4.如果没有，直接加入<br>
+5.如果有，调用equals比较，结果相同，放弃添加，结果不同，则添加到最后<br>
+6.在Java8中，如果一条链表的元素个数超过TREEIFY_THRESHOLD(默认是8)，并且table的大小 &gt;= MIN_TREEIFY_CAPACITY(默认64),就会进行树化，(红黑树)<br>
+<img src="https://s2.loli.net/2023/03/06/i4xAvNIdzYuwWpc.png" alt="" loading="lazy"></p>
+</li>
+</ul>
+]]></content>
+    </entry>
+</feed>
